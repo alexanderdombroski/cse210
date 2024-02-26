@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b15Y3RLUtE8jQeo5hrAjj+DXAJxWGSIlw6ZPOjeQVLnVcsNZFZF8YO5f+QE2LaFF85bmbrPvNnY45YwMNmm3NQ==",
+  "dgSpecHash": "uKKMum2h87EsKrd0MNCUGoqlI9ZWoW8Uddx/NjSEPCM8y3MBG8RjmZs2WXVQPwrFjRZQDtKdsBXc660CwmOsBA==",
   "success": true,
   "projectFilePath": "/Users/alexdombroski/vscode/csharp/cse210/sandbox/Sandbox/Sandbox.csproj",
-  "expectedPackageFiles": [
-    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.ref/7.0.16/microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
-    "/Users/alexdombroski/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.16/microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512",
-    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.16/microsoft.netcore.app.host.osx-arm64.7.0.16.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
