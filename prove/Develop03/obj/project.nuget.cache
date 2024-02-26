@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "vlb7nsOF8smqRphPXJyiL0UGV+ayqTf/ZBlCj4w1lVAbp9FNtT8Hq664VX5knR9p5hxhx/v5M+SbFo9i+Ux7IA==",
+  "success": true,
+  "projectFilePath": "/Users/alexdombroski/vscode/csharp/cse210/prove/Develop03/Develop03.csproj",
+  "expectedPackageFiles": [
+    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.ref/7.0.16/microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
+    "/Users/alexdombroski/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.16/microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512",
+    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.16/microsoft.netcore.app.host.osx-arm64.7.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}
