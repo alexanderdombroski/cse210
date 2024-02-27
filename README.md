@@ -1,4 +1,4 @@
-# cse210-student-template
+# cse210-student
 This is the starter code for students in CSE 210. This is Alex Dombroski's copy of the starter code, and all of his changes and additions.
 
 This repository contains the starter code for many different projects. They are arranged as follows:
