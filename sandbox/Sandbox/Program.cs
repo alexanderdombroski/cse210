@@ -10,5 +10,8 @@ class Program
         Console.Write("What is your last name: ");
         string lastName = Console.ReadLine();
         Console.WriteLine("You are " + lastName + ", " + firstName + ' ' + lastName);
+        Console.WriteLine($"You are {lastName}, {firstName} {lastName}");
+        Console.WriteLine("You are {0}, {1} {0}", lastName, firstName);
+        Console.WriteLine(String.Format("You are {0}, {1} {0}", lastName, firstName));
     }
 }
