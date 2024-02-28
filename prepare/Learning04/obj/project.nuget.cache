@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9kBHKloaJ5wN7+D8ZS58ijGbrnjpDLLO89TxdRpEL67ksCy5vqW4jWMG9gIO2qza0ZjQ8e866eeT0za9E/lRfA==",
+  "dgSpecHash": "VCY4K6sxxQmMcMi/oHatbR8NCm0GN/uVXPzCYspY5kkGbyPx2kc2i6IxXieTf4OJoGO5metNq26iE9k7GJSDtA==",
   "success": true,
   "projectFilePath": "/Users/alexdombroski/vscode/csharp/cse210/prepare/Learning04/Learning04.csproj",
-  "expectedPackageFiles": [
-    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.ref/7.0.16/microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
-    "/Users/alexdombroski/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.16/microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512",
-    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.16/microsoft.netcore.app.host.osx-arm64.7.0.16.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

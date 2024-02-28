@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h0eQd6drzJAhDkkKWfZKBEWQRMO6RzbCqf75XdeBdLVzKLHje24Un9metVHVyBjlIH5cFcP5LsKze4kP/0un6g==",
+  "dgSpecHash": "MlESdvngLEW6THWKh4G6aCT314gkwv7WZDEoQK0H56YntqEp1QgeoBd4+ehDlCBwv8X5PC9iRhHmzWEHj5PGqQ==",
   "success": true,
   "projectFilePath": "/Users/alexdombroski/vscode/csharp/cse210/final/Foundation2/Foundation2.csproj",
-  "expectedPackageFiles": [
-    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.ref/7.0.16/microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
-    "/Users/alexdombroski/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.16/microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512",
-    "/Users/alexdombroski/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.16/microsoft.netcore.app.host.osx-arm64.7.0.16.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
