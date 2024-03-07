@@ -1,16 +1,16 @@
 using System;
 
-class ADEntry {
+public class ADEntry {
     // Attributes
-    string _ADDate;
-    string _ADPrompt;
-    string _ADResponse;
+    public string _ADDate;
+    public string _ADPrompt;
+    public string _ADResponse;
 
     // Methods
-    string ADToString() { 
+    public string ADToString() { 
         return $"{_ADDate} - {_ADPrompt}\n\t{_ADResponse}";
     }
-    string ADToCsv() {
+    public string ADToCsv() {
         return $"{_ADDate}|{_ADPrompt}|{_ADResponse}";
     }
 }

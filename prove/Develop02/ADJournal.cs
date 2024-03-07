@@ -1,17 +1,17 @@
 using System;
 
-class ADJournal {
+public class ADJournal {
     // Attributes
-    string _ADName;
-    List<ADEntry> _ADEntries = new();
+    public string _ADName;
+    public List<ADEntry> _ADEntries = new();
 
     // Methods
-    List<string> ADToString() {
+    public List<string> ADToString() {
         List<string> ADJournalEntries = new();
 
         return ADJournalEntries;
     }
-    string ADToCsv() {
+   public string ADToCsv() {
 
         return "";
     }
