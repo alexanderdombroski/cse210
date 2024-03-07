@@ -7,8 +7,13 @@ public class ADEntry {
     public string _ADResponse;
 
     // Methods
+    public ADEntry() {
+        DateTime ADCurrentTime = DateTime.Now;
+        _ADDate = ADCurrentTime.ToShortDateString();
+    }
+
     public string ADToString() { 
-        return $"{_ADDate} - {_ADPrompt}\n\t{_ADResponse}";
+        return $"{_ADDate} - {_ADPrompt}\n    {_ADResponse}";
     }
     public string ADToCsv() {
         return $"{_ADDate}|{_ADPrompt}|{_ADResponse}";
