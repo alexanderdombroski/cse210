@@ -3,7 +3,6 @@ using System.IO.Enumeration;
 using Microsoft.VisualBasic;
 using System.Linq;
 
-
 class Program {
     static void ADDisplayMenu() {
         Console.WriteLine("\nWhat would you like to do?");
@@ -73,22 +72,26 @@ class Program {
             Console.Write("Type the name of the text file to load? ");
             p_Filename = Console.ReadLine();
         }
-        p_Journal._ADEntries = new();
-        string[] ADLines = File.ReadAllLines(p_Filename);
-        
-        // Handle first line
-        p_Journal._ADName = ADLines.FirstOrDefault().Trim();
-        IEnumerable<string> ADData = ADLines.Skip(1);
+        if (File.Exists(p_Filename)) {
+            p_Journal._ADEntries = new();
+            string[] ADLines = File.ReadAllLines(p_Filename);
+            
+            // Handle first line
+            p_Journal._ADName = ADLines.FirstOrDefault().Trim();
+            IEnumerable<string> ADData = ADLines.Skip(1);
 
-        foreach (string line in ADData) {
-            string[] parts = line.Trim().Split('|');
-            ADEntry ADLoadedEntry = new() {
-                _ADDate = parts[0],
-                _ADPrompt = parts[1],
-                _ADResponse = parts[2]
+            foreach (string line in ADData) {
+                string[] parts = line.Trim().Split('|');
+                ADEntry ADLoadedEntry = new() {
+                    _ADDate = parts[0],
+                    _ADPrompt = parts[1],
+                    _ADResponse = parts[2]
+                };
+                p_Journal._ADEntries.Add(ADLoadedEntry);
             };
-            p_Journal._ADEntries.Add(ADLoadedEntry);
-        };
+        } else {
+            Console.WriteLine("File doesn't exist");
+        }
     }
 
     static string ADGetUserName() {

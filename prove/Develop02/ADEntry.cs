@@ -6,7 +6,7 @@ public class ADEntry {
     public string _ADPrompt;
     public string _ADResponse;
 
-    // Methods
+    // Methods    
     public ADEntry() {
         DateTime ADCurrentTime = DateTime.Now;
         _ADDate = ADCurrentTime.ToShortDateString();
