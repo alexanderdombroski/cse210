@@ -54,11 +54,17 @@ class Program {
         ADEntries.ForEach(Console.WriteLine);
     }
     
-    static void ADSaveJournal(ADJournal p_Journal, string p_Filename = "") {
+    static string ADCheckFilename(string p_Filename) {
         if (p_Filename == "") {
-            Console.Write("Type the name of the text file to save? ");
+            Console.Write("Type the name of the text file: ");
             p_Filename = Console.ReadLine();
+            p_Filename = p_Filename.Contains('.') ? p_Filename : p_Filename + ".txt";
         }
+        return p_Filename;
+    }
+
+    static void ADSaveJournal(ADJournal p_Journal, string p_Filename = "") {
+        p_Filename = ADCheckFilename(p_Filename);
         p_Journal._ADName ??= ADGetUserName();
         using (StreamWriter ADOutputFile = new(p_Filename)) {
             ADOutputFile.WriteLine(p_Journal._ADName);
@@ -68,10 +74,7 @@ class Program {
     }
 
     static void ADLoadJournal(ADJournal p_Journal, string p_Filename = "") {
-        if (p_Filename == "") {
-            Console.Write("Type the name of the text file to load? ");
-            p_Filename = Console.ReadLine();
-        }
+        p_Filename = ADCheckFilename(p_Filename);
         if (File.Exists(p_Filename)) {
             p_Journal._ADEntries = new();
             string[] ADLines = File.ReadAllLines(p_Filename);
@@ -89,6 +92,7 @@ class Program {
                 };
                 p_Journal._ADEntries.Add(ADLoadedEntry);
             };
+            Console.WriteLine($"{p_Filename} successfully loaded");
         } else {
             Console.WriteLine("File doesn't exist");
         }
