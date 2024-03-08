@@ -21,6 +21,7 @@ public class ADPromptGenerator {
 
     // Methods
     public ADPromptGenerator() {
+        // Constructor Function
         ADResetPrompts();
     }
 
