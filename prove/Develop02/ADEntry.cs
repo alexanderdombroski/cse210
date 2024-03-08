@@ -1,3 +1,5 @@
+// Alex Dombroski - 03/08/2024
+
 using System;
 
 public class ADEntry {
@@ -12,10 +14,12 @@ public class ADEntry {
         _ADDate = ADCurrentTime.ToShortDateString();
     }
 
-    public string ADToString() { 
+    public string ADToString() {
+        // Returns a writable string
         return $"{_ADDate} - {_ADPrompt}\n    {_ADResponse}";
     }
     public string ADToCsv() {
+        // returns data formatted as a line in a CSV, without the newline
         return $"{_ADDate}|{_ADPrompt}|{_ADResponse}";
     }
 }
