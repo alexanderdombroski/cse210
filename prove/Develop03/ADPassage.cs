@@ -14,11 +14,11 @@ class ADPassage {
     }
 
     // Methods:
-    public string ADToString() {
+    public string ADToString(int P_WordsPerLine = 12) {
         string ADReturnString = "";
         for (int i = 0; i < _ADVerseWords.Count; i++) {
             string ADWord = _ADVerseWords[i].ADToString();
-            ADReturnString += ADWord + ((i % 10 == 9) ? '\n' : ' ');
+            ADReturnString += ADWord + ((i % P_WordsPerLine == P_WordsPerLine-1) ? '\n' : ' ');
         }
         return ADReturnString;
     }
