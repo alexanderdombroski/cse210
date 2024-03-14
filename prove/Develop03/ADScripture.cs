@@ -55,4 +55,10 @@ class ADScripture {
     public bool ADHideWord() {
         return _ScripturePassage.ADHideWord();
     }
+
+    public static void ADRememberScripture(string P_Reference, string P_Scripture) {
+        using (StreamWriter ADFileWriter = File.AppendText("scripture.txt")) {
+            ADFileWriter.Write($"\n{P_Reference}|{P_Scripture}");
+        }
+    }
 }

@@ -23,7 +23,12 @@ class Program
     }
 
     static string ADGetReference() {
-        Console.Write("Type in the reference: ");
+        Console.Write("Type in the reference (one verse at a time only, ie 1 Nephi 3:7): ");
+        return Console.ReadLine();
+    }
+
+    static string ADGetPassage() {
+        Console.Write("Type in the verse (not including the verse number): ");
         return Console.ReadLine();
     }
 
@@ -46,18 +51,23 @@ class Program
             ADDisplayMenu();
             ADMenuOption = ADGetMenuSelection();
             switch (ADMenuOption) {
-                case 1:
+                case 1: {
                     string ADChosenReference = ADGetReference();
-                    ADScripture ADChosenScripture = new(ADChosenReference);
-                    ADHideScripture(ADChosenScripture);
+                    ADScripture ADChosenPassage = new(ADChosenReference);
+                    ADHideScripture(ADChosenPassage);
                     break;
-                case 2:
+                }
+                case 2: {
                     ADScripture ADRandomScripture = new();
                     ADHideScripture(ADRandomScripture);
                     break;
-                case 3:
-
+                }
+                case 3: {
+                    string ADChosenReference = ADGetReference();
+                    string ADChosenPassage = ADGetPassage();
+                    ADScripture.ADRememberScripture(ADChosenReference, ADChosenPassage);
                     break;
+                }
                 case 4:
                     Console.WriteLine("Thanks for using the scripture memorizer program");
                     break;
