@@ -7,29 +7,40 @@ class ADScripture {
     private readonly ADPassage _ScripturePassage;
 
     // Constructors
-    public ADScripture(string P_Reference, string P_Verse) {
-        
+    public ADScripture(string P_Reference) {
+        string[] ADVerse = ADFindVerse(P_Reference);
+        if (ADVerse.Length == 0) {
+            Console.WriteLine("Verse not found. Picking Random Verse");
+            ADVerse = ADPickRandomVerse();
+        }
+        _ScriptureReference = new(ADVerse[0]);
+        _ScripturePassage = new(ADVerse[1]);
     }
 
     public ADScripture() {
-        string[] ADverse = ADReadVerse();
-        _ScriptureReference = new(ADverse[0]);
-        _ScripturePassage = new(ADverse[1]);
+        string[] ADVerse = ADPickRandomVerse();
+        _ScriptureReference = new(ADVerse[0]);
+        _ScripturePassage = new(ADVerse[1]);
     }
     
-    private static string[] ADReadVerse(string referece = null) {
+    private static string[] ADFindVerse(string P_Reference) {
         string[] ADLines = File.ReadAllLines("scripture.txt");
-        if (referece == null) {
-            Random ADRand = new();
-            int ADindex = ADRand.Next(ADLines.Length);
-            string line = ADLines[ADindex];
-            return line.Split('|');
-        } else {
-            foreach (string item in ADLines) {
-                
+        string[] ADReturnValue = Array.Empty<string>();
+        foreach (string verse in ADLines) {
+            string[] ADVerseParts = verse.Split('|');
+            if (ADVerseParts[0] == P_Reference) {
+                ADReturnValue = ADVerseParts;
             }
-            return ADLines;
         }
+        return ADReturnValue;
+    }
+
+    private static string[] ADPickRandomVerse() {
+        string[] ADLines = File.ReadAllLines("scripture.txt");
+        Random ADRand = new();
+        int ADindex = ADRand.Next(ADLines.Length);
+        string line = ADLines[ADindex];
+        return line.Split('|');
     }
 
     // Methods

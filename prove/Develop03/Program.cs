@@ -21,28 +21,38 @@ class Program
         } while (ADOption < 1 || ADOption > 4 || ADInvalidResponse);
         return ADOption;
     }
+
+    static string ADGetReference() {
+        Console.Write("Type in the reference: ");
+        return Console.ReadLine();
+    }
     
     static void Main(string[] args) {
         Console.Clear();
-        ADDisplayMenu();
-        int ADMenuOption = ADGetMenuSelection();
-        switch (ADMenuOption) {
-            case 1:
-                
-                break;
-            case 2:
-                ADScripture ADRandomScripture = new();
-                Console.WriteLine(ADRandomScripture.ADToString());
-                break;
-            case 3:
-                
-                break;
-            case 4:
-                Console.WriteLine("Thanks for using the scripture memorizer program");
-                break;
-            default:
-                Console.WriteLine("I don't know the menu option of "+ADMenuOption);
-                break;
-        }
+        int ADMenuOption;
+        do {
+            ADDisplayMenu();
+            ADMenuOption = ADGetMenuSelection();
+            switch (ADMenuOption) {
+                case 1:
+                    string ADChosenReference = ADGetReference();
+                    ADScripture ADChosenScripture = new(ADChosenReference);
+                    Console.WriteLine(ADChosenScripture.ADToString());
+                    break;
+                case 2:
+                    ADScripture ADRandomScripture = new();
+                    Console.WriteLine(ADRandomScripture.ADToString());
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+                    Console.WriteLine("Thanks for using the scripture memorizer program");
+                    break;
+                default:
+                    Console.WriteLine("I don't know the menu option of "+ADMenuOption);
+                    break;
+            }
+        } while (ADMenuOption != 4);
     }
 }
