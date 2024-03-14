@@ -26,22 +26,34 @@ class Program
         Console.Write("Type in the reference: ");
         return Console.ReadLine();
     }
+
+    static void ADHideScripture(ADScripture P_Scripture) {
+        bool ADNotCompletelyHidden;
+        string ADUserInput;
+        do {
+            Console.Clear();
+            Console.WriteLine(P_Scripture.ADToString());
+            Console.Write("Press ENTER to continue or type quit: ");
+            ADUserInput = Console.ReadLine().ToLower();
+            ADNotCompletelyHidden = P_Scripture.ADHideWord();
+        } while (ADNotCompletelyHidden && ADUserInput != "quit");
+    }
     
     static void Main(string[] args) {
-        Console.Clear();
         int ADMenuOption;
         do {
+            Console.Clear();
             ADDisplayMenu();
             ADMenuOption = ADGetMenuSelection();
             switch (ADMenuOption) {
                 case 1:
                     string ADChosenReference = ADGetReference();
                     ADScripture ADChosenScripture = new(ADChosenReference);
-                    Console.WriteLine(ADChosenScripture.ADToString());
+                    ADHideScripture(ADChosenScripture);
                     break;
                 case 2:
                     ADScripture ADRandomScripture = new();
-                    Console.WriteLine(ADRandomScripture.ADToString());
+                    ADHideScripture(ADRandomScripture);
                     break;
                 case 3:
 

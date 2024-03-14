@@ -11,6 +11,8 @@ class ADScripture {
         string[] ADVerse = ADFindVerse(P_Reference);
         if (ADVerse.Length == 0) {
             Console.WriteLine("Verse not found. Picking Random Verse");
+            Console.Write("Press ENTER to continue: ");
+            Console.ReadLine();
             ADVerse = ADPickRandomVerse();
         }
         _ScriptureReference = new(ADVerse[0]);
@@ -22,7 +24,9 @@ class ADScripture {
         _ScriptureReference = new(ADVerse[0]);
         _ScripturePassage = new(ADVerse[1]);
     }
-    
+
+    // Private Methods
+
     private static string[] ADFindVerse(string P_Reference) {
         string[] ADLines = File.ReadAllLines("scripture.txt");
         string[] ADReturnValue = Array.Empty<string>();
@@ -43,8 +47,12 @@ class ADScripture {
         return line.Split('|');
     }
 
-    // Methods
+    // Public Methods
     public string ADToString() {
         return $"{_ScriptureReference.ADToString()}\n{_ScripturePassage.ADToString()}";
+    }
+
+    public bool ADHideWord() {
+        return _ScripturePassage.ADHideWord();
     }
 }
