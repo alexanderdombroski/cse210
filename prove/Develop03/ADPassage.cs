@@ -4,7 +4,6 @@ using System.Linq;
 class ADPassage {
     // Attributes:
     private readonly List<ADWord> _ADVerseWords = new();
-    
     private List<int> _ADHiddenIndexes = new();
     private int _ADWordsLeft = 0;
 
@@ -21,6 +20,7 @@ class ADPassage {
 
     // Methods:
     public string ADToString(int P_WordsPerLine = 12) {
+        // CREATIVITY - Return the wordlist in a formatted string paragraph
         string ADReturnString = "";
         for (int i = 0; i < _ADVerseWords.Count; i++) {
             string ADWord = _ADVerseWords[i].ADToString();
@@ -33,8 +33,11 @@ class ADPassage {
         if (_ADWordsLeft == 0) {
             return false;
         }
+        // Generate Random Index
         Random ADRandGen = new();
         int ADWordIndex = ADRandGen.Next(_ADWordsLeft);
+
+        // Clear word at index, and remove index
         _ADVerseWords[_ADHiddenIndexes[ADWordIndex]].ADClearWord();
         _ADHiddenIndexes.RemoveAt(ADWordIndex);
         _ADWordsLeft--;

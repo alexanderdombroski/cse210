@@ -15,15 +15,10 @@ class ADReference {
         _ADVerseStart = ADParts.Item3;
         _ADVerseEnd = ADParts.Item4;
     }
-    public ADReference(string P_Book, int P_Chapter, int P_VStart, int P_VEnd) {
-        _ADBook = P_Book;
-        _ADChapter = P_Chapter;
-        _ADVerseStart = P_VStart;
-        _ADVerseEnd = P_VEnd;
-    }
 
     // Methods
     public List<string> ADExpandReferences() {
+        // Creates a reference list of each verse (ie Moroni 10:3, Moroni 10:4, Moroni 10:5)
         List<string> ReferenceList = new();
         for (int i=_ADVerseStart; i<=_ADVerseEnd; i++) {
             ReferenceList.Add($"{_ADBook} {_ADChapter}:{i}");
@@ -32,6 +27,7 @@ class ADReference {
     }
 
     private static (string, int, int, int) ADSplitReference(string P_Reference) {
+        // Returns a formatted reference in four parts, matching the class attributes.
         try {
             string[] ADParts = P_Reference.Split(':');
             /* There is no scripture book two letters or shorter, similarly 
@@ -57,6 +53,7 @@ class ADReference {
     }
 
     public string ADGetVerses() {
+        // Returns the verse section of the reference, (ie "3-5", "6", or "2-6")
         if (_ADVerseStart == _ADVerseEnd) {
             return _ADVerseEnd.ToString();
         } else {
@@ -65,7 +62,7 @@ class ADReference {
     }
 
     public string ADToString() {
+        // Returns the formatted reference
         return $"{_ADBook} {_ADChapter}:{ADGetVerses()}";
     }
 }
-

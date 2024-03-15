@@ -8,6 +8,7 @@ class ADScripture {
 
     // Constructors
     public ADScripture(string P_Reference) {
+        // Specified scripture constructor
         _ScriptureReference = new(P_Reference);
         List<string> ADReferenceList = _ScriptureReference.ADExpandReferences();
         string ADVerses = ADFindVerses(ADReferenceList);
@@ -24,17 +25,19 @@ class ADScripture {
     }
 
     public ADScripture() {
+        // Random Verse Constructor
         string[] ADVerse = ADPickRandomVerse();
         _ScriptureReference = new(ADVerse[0]);
         _ScripturePassage = new(ADVerse[1]);
     }
 
     // Methods
-    private string ADFindVerses(List<string> P_References) {
+    private static string ADFindVerses(List<string> P_References) {
+        // CREATIVITY - Pull one or more verses from a file
         // Create a dictionary of found references and passages
         Dictionary<string, string> ADVersesDict = P_References.ToDictionary(key => key, key => (string)null);
         
-        // Iterate thorough file
+        // Iterate thorough file and populate the dictionary
         string[] ADLines = File.ReadAllLines("scripture.txt");
         foreach (string verse in ADLines) {
             string[] ADVerseParts = verse.Split('|');
@@ -49,7 +52,8 @@ class ADScripture {
     }
 
     private static string[] ADPickRandomVerse() {
-        string[] ADLines = File.ReadAllLines("scripture.txt");
+        // Returns a random verse from the file scripture.txt [string reference, string verse]
+        string[] ADLines = File.ReadAllLines("scripture.txt"); // CREATIVITY
         Random ADRand = new();
         int ADindex = ADRand.Next(ADLines.Length);
         string line = ADLines[ADindex];
@@ -65,6 +69,7 @@ class ADScripture {
     }
 
     public static void ADRememberScripture(string P_Reference, string P_Scripture) {
+        // Appends a verse to the file scripture.txt 
         using (StreamWriter ADFileWriter = File.AppendText("scripture.txt")) {
             ADFileWriter.Write($"\n{P_Reference}|{P_Scripture}");
         }

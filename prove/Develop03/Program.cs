@@ -1,8 +1,16 @@
+// Alex Dombroski - 03/15/24
+/* CREATIVITY in comments 
+ - Scriptures can be added to a file
+ - Multiple Verses can be pulled from the file at once 
+ - A random scripture can be pulled from the file 
+ - Verses are displayed in paragraph form, not on a single line */
+
 using System;
 
 class Program
 {
     static void ADDisplayMenu() {
+        // Displays the menu
         Console.WriteLine("Welcome to the scripture program!");
         Console.WriteLine("    1. Choose Scripture");
         Console.WriteLine("    2. Pick Random Scripture");
@@ -23,11 +31,13 @@ class Program
     }
 
     static string ADGetString(string P_Prompt) {
+        // Gets a string from the user, which is their response to a given prompt
         Console.Write(P_Prompt);
         return Console.ReadLine();
     }
 
     static void ADIncrementallyHideScripture(ADScripture P_Scripture) {
+        // Allow the user to hide words one word at a time, calling scripture and nested class functionality
         bool ADNotCompletelyHidden;
         string ADUserInput;
         do {
@@ -46,27 +56,27 @@ class Program
             ADDisplayMenu();
             ADMenuOption = ADGetMenuSelection();
             switch (ADMenuOption) {
-                case 1: {
+                case 1: { // Choose a scripture
                     string ADChosenReference = ADGetString("Type in the reference: ");
                     ADScripture ADChosenPassage = new(ADChosenReference);
                     ADIncrementallyHideScripture(ADChosenPassage);
                     break;
                 }
-                case 2: {
+                case 2: { // Choose a random scripture
                     ADScripture ADRandomScripture = new();
                     ADIncrementallyHideScripture(ADRandomScripture);
                     break;
                 }
-                case 3: {
+                case 3: { // CREATIVITY - Add the scripture to a file
                     string ADChosenReference = ADGetString("Type in the reference (one verse at a time only, ie 1 Nephi 3:7): ");
                     string ADChosenPassage = ADGetString("Type in the verse (not including the verse number): ");
                     ADScripture.ADRememberScripture(ADChosenReference, ADChosenPassage);
                     break;
                 }
-                case 4:
+                case 4: // Quit
                     Console.WriteLine("Thanks for using the scripture memorizer program!");
                     break;
-                default:
+                default: 
                     Console.WriteLine("I don't know the menu option of "+ADMenuOption);
                     break;
             }
