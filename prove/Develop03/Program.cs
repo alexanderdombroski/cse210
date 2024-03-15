@@ -64,7 +64,7 @@ class Program
                     break;
                 }
                 case 4:
-                    Console.WriteLine("Thanks for using the scripture memorizer program");
+                    Console.WriteLine("Thanks for using the scripture memorizer program!");
                     break;
                 default:
                     Console.WriteLine("I don't know the menu option of "+ADMenuOption);
