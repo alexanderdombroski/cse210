@@ -16,6 +16,6 @@ class ADWord {
     }
 
     public void ADClearWord() {
-        _ADword = string.Concat(Enumerable.Repeat('_', _ADword.Length));
+        _ADword = (_ADword.StartsWith("\n") ? "\n" : "") + new string('_', _ADword.Length);
     }
 }

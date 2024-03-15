@@ -22,17 +22,12 @@ class Program
         return ADOption;
     }
 
-    static string ADGetReference() {
-        Console.Write("Type in the reference (one verse at a time only, ie 1 Nephi 3:7): ");
+    static string ADGetString(string P_Prompt) {
+        Console.Write(P_Prompt);
         return Console.ReadLine();
     }
 
-    static string ADGetPassage() {
-        Console.Write("Type in the verse (not including the verse number): ");
-        return Console.ReadLine();
-    }
-
-    static void ADHideScripture(ADScripture P_Scripture) {
+    static void ADIncrementallyHideScripture(ADScripture P_Scripture) {
         bool ADNotCompletelyHidden;
         string ADUserInput;
         do {
@@ -52,19 +47,19 @@ class Program
             ADMenuOption = ADGetMenuSelection();
             switch (ADMenuOption) {
                 case 1: {
-                    string ADChosenReference = ADGetReference();
+                    string ADChosenReference = ADGetString("Type in the reference: ");
                     ADScripture ADChosenPassage = new(ADChosenReference);
-                    ADHideScripture(ADChosenPassage);
+                    ADIncrementallyHideScripture(ADChosenPassage);
                     break;
                 }
                 case 2: {
                     ADScripture ADRandomScripture = new();
-                    ADHideScripture(ADRandomScripture);
+                    ADIncrementallyHideScripture(ADRandomScripture);
                     break;
                 }
                 case 3: {
-                    string ADChosenReference = ADGetReference();
-                    string ADChosenPassage = ADGetPassage();
+                    string ADChosenReference = ADGetString("Type in the reference (one verse at a time only, ie 1 Nephi 3:7): ");
+                    string ADChosenPassage = ADGetString("Type in the verse (not including the verse number): ");
                     ADScripture.ADRememberScripture(ADChosenReference, ADChosenPassage);
                     break;
                 }

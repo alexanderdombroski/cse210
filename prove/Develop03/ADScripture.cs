@@ -8,15 +8,19 @@ class ADScripture {
 
     // Constructors
     public ADScripture(string P_Reference) {
-        string[] ADVerse = ADFindVerse(P_Reference);
-        if (ADVerse.Length == 0) {
+        _ScriptureReference = new(P_Reference);
+        List<string> ADReferenceList = _ScriptureReference.ADExpandReferences();
+        string ADVerses = ADFindVerses(ADReferenceList);
+        if (ADVerses.StartsWith("\n") || ADVerses == "") {
             Console.WriteLine("Verse not found. Picking Random Verse");
             Console.Write("Press ENTER to continue: ");
             Console.ReadLine();
-            ADVerse = ADPickRandomVerse();
+            string[] ADRandomVerse = ADPickRandomVerse();
+            _ScriptureReference = new(ADRandomVerse[0]);
+            _ScripturePassage = new(ADRandomVerse[1]);
+        } else {
+            _ScripturePassage = new(ADVerses);
         }
-        _ScriptureReference = new(ADVerse[0]);
-        _ScripturePassage = new(ADVerse[1]);
     }
 
     public ADScripture() {
@@ -25,18 +29,23 @@ class ADScripture {
         _ScripturePassage = new(ADVerse[1]);
     }
 
-    // Private Methods
-
-    private static string[] ADFindVerse(string P_Reference) {
+    // Methods
+    private string ADFindVerses(List<string> P_References) {
+        // Create a dictionary of found references and passages
+        Dictionary<string, string> ADVersesDict = P_References.ToDictionary(key => key, key => (string)null);
+        
+        // Iterate thorough file
         string[] ADLines = File.ReadAllLines("scripture.txt");
-        string[] ADReturnValue = Array.Empty<string>();
         foreach (string verse in ADLines) {
             string[] ADVerseParts = verse.Split('|');
-            if (ADVerseParts[0] == P_Reference) {
-                ADReturnValue = ADVerseParts;
+            if (ADVersesDict.ContainsKey(ADVerseParts[0])) {
+                ADVersesDict[ADVerseParts[0]] = ADVerseParts[1];
             }
         }
-        return ADReturnValue;
+        
+        // Combine the references
+        string ADAllPassages = string.Join(" \n", ADVersesDict.Values);
+        return ADAllPassages;
     }
 
     private static string[] ADPickRandomVerse() {
@@ -47,7 +56,6 @@ class ADScripture {
         return line.Split('|');
     }
 
-    // Public Methods
     public string ADToString() {
         return $"{_ScriptureReference.ADToString()}\n{_ScripturePassage.ADToString()}";
     }

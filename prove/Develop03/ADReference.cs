@@ -21,33 +21,39 @@ class ADReference {
         _ADVerseStart = P_VStart;
         _ADVerseEnd = P_VEnd;
     }
-    public ADReference(ADReference P_Duplicate) {
-        _ADBook = P_Duplicate._ADBook;
-        _ADChapter = P_Duplicate._ADChapter;
-        _ADVerseStart = P_Duplicate._ADVerseStart;
-        _ADVerseEnd = P_Duplicate._ADVerseEnd;
-    }
 
     // Methods
-    private static (string, int, int, int) ADSplitReference(string P_Reference) {
-        string[] ADParts = P_Reference.Split(':');
-        /* There is no scripture book two letters or shorter, similarly 
-        there is no series of books with 10+ book numbers */
-        int ADSpaceIndex = ADParts[0].IndexOf(' ', 3); 
-        string ADBook = ADParts[0][..ADSpaceIndex];
-        int ADChapter = int.Parse(ADParts[0][(ADSpaceIndex + 1)..]);
-
-        int ADVStart;
-        int ADVEnd;
-        if (ADParts[1].Contains('-')) {
-            string[] ADVerseParts = ADParts[1].Split('-');
-            ADVStart = int.Parse(ADVerseParts[0]);
-            ADVEnd = int.Parse(ADVerseParts[1]);
-        } else {
-            ADVStart = int.Parse(ADParts[1]);
-            ADVEnd = ADVStart;
+    public List<string> ADExpandReferences() {
+        List<string> ReferenceList = new();
+        for (int i=_ADVerseStart; i<=_ADVerseEnd; i++) {
+            ReferenceList.Add($"{_ADBook} {_ADChapter}:{i}");
         }
-        return (ADBook, ADChapter, ADVStart, ADVEnd);
+        return ReferenceList;
+    }
+
+    private static (string, int, int, int) ADSplitReference(string P_Reference) {
+        try {
+            string[] ADParts = P_Reference.Split(':');
+            /* There is no scripture book two letters or shorter, similarly 
+            there is no series of books with 10+ book numbers */
+            int ADSpaceIndex = ADParts[0].IndexOf(' ', 3); 
+            string ADBook = ADParts[0][..ADSpaceIndex];
+            int ADChapter = int.Parse(ADParts[0][(ADSpaceIndex + 1)..]);
+
+            int ADVStart;
+            int ADVEnd;
+            if (ADParts[1].Contains('-')) {
+                string[] ADVerseParts = ADParts[1].Split('-');
+                ADVStart = int.Parse(ADVerseParts[0]);
+                ADVEnd = int.Parse(ADVerseParts[1]);
+            } else {
+                ADVStart = int.Parse(ADParts[1]);
+                ADVEnd = ADVStart;
+            }
+            return (ADBook, ADChapter, ADVStart, ADVEnd);
+        } catch {
+            return ("6 Nephi", 24, 2, 4);
+        }
     }
 
     public string ADGetVerses() {
