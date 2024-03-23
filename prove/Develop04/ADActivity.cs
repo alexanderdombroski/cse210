@@ -30,10 +30,10 @@ class ADActivity {
     protected void ADPromptDurationChange() {
         Console.Write("How long, in seconds, would you like to do this activity for?: ");
         do {
-            if (!int.TryParse(Console.ReadLine(), out _ADDuration)) {
+            if (!int.TryParse(Console.ReadLine(), out _ADDuration) || _ADDuration <= 0) {
                 Console.Write("Please type a valid positive integer: ");
             }
-        } while (_ADDuration == 0);
+        } while (_ADDuration <= 0);
     }
     protected string ADGetRandomPrompt() {
         if (_ADUnusedPromptIndexes.Count == 0) {
@@ -75,9 +75,11 @@ class ADActivity {
         ADPauseMiliseconds(6000);
     }
 
-    protected void ADDoForDuration(Action P_VoidFunction) {
+    protected void ADDoForDuration(Action P_VoidFunction) => ADDoForDuration(P_VoidFunction, _ADDuration);
+
+    protected static void ADDoForDuration(Action P_VoidFunction, int P_Duration) {
         DateTime ADCurrentTime = DateTime.Now;
-        DateTime ADEndTime = ADCurrentTime.AddSeconds(_ADDuration);
+        DateTime ADEndTime = ADCurrentTime.AddSeconds(P_Duration);
         do {
             P_VoidFunction();
             ADCurrentTime = DateTime.Now;

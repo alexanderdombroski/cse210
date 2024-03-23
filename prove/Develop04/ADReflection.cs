@@ -25,7 +25,7 @@ class ADReflection : ADActivity, ADActivity.ADIRunnable {
         return ADQuestion;
     }
 
-    private void ADGiveInstruction() {
+    private void ADDisplayInstruction() {
         Console.WriteLine("Consider the following prompt:\n");
         Console.WriteLine($"--- {ADGetRandomPrompt()} ---\n");
         Console.Write("When you have something in mind, press ENTER to continue. ");
@@ -43,7 +43,7 @@ class ADReflection : ADActivity, ADActivity.ADIRunnable {
 
     public void ADRun() {
         ADStartActivity();
-        ADGiveInstruction();
+        ADDisplayInstruction();
         ADDoForDuration(ADDisplayQuestion);
         ADEndActivity();
     }

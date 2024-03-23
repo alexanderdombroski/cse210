@@ -33,12 +33,33 @@
     "ActivityName": "Listing",
     "Description": "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.",
     "EndMessage": "Keeping a journal or todo list will strengthen your memory and organization abilities.",
-    "Prompts": ["Who are people that you appreciate?", 
+    "Prompts": [
+      "Who are people that you appreciate?", 
       "What are personal strengths of yours?", 
       "Who are people that you have helped this week?", 
       "When have you felt the Holy Ghost this month?", 
       "Who are some of your personal heroes?", 
       "What are some helpful talents you have?"
 	  ]
+  },
+  "Gratitude": {
+    "ActivityName": "Gratitude",
+    "Description": "This activity will show how many things in life you have to be grateful for. Try to think of as many as possible",
+    "EndMessage": "Remember to thank those who help you and explain why you are grateful for them",
+    "Prompts": [
+      "What teachers are you grateful for?",
+      "Who are you grateful for among your family or friends?",
+      "What are you grateful for in nature?",
+      "What oppourtunities are you grateful for?",
+      "What real or imaginary pets are you grateful for",
+      "What informative sources are you grateful for?",
+      "What possessions are you grateful for?",
+      "What experiences are you grateful for?",
+      "What acts of kindness are you grateful for?",
+      "What freedoms or rights do you have that you're grateful for?",
+      "Who provided guidance or mentorship that you're grateful for?",
+      "Who brought laughter into your life that you're grateful for?",
+      "What locations are you grateful for?"
+    ]
   }
 }

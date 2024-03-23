@@ -1,3 +1,19 @@
+// Alex Dombroski - March 23 2024
+// Mindfulness Program
+//
+/* CREATIVITY - USE CTRL F
+    * Additional Gratititude Activity
+    * Pull in Constructor parameters from a JSON file 
+    * Used several different pause animations
+    * Learned additional concepts to simplify each activity's child code
+ * Additional Concepts Learned
+    * Method Overloading
+    * Working with JSON files
+    * Using Action and Func<T> datatypes
+    * Using interfaces to require methods in child classes
+    * Basic understanding of Generic methods and polymorphism
+*/ // C# is a pretty epic programming language!
+
 using System;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -6,17 +22,20 @@ using System.Data;
 class Program {
 
     static JsonObject ADGetJsonObject(string P_Filepath) {
+        // Deserialize a JSON object from a given file and return it
         string ADJsonString = File.ReadAllText(P_Filepath); 
         JsonObject ADJsonObject = JsonSerializer.Deserialize<JsonObject>(ADJsonString);
         return ADJsonObject;
     }
 
     static List<string> ADJsonArrayToList(JsonArray P_JsonArray) {
+        // Convert a Json Array to a list using S
         return P_JsonArray.Select(node => node.ToString()).ToList();
-    }
+    } 
     
-    static List<object> ADMakeActivityConstructorList(JsonObject P_ActivityData, string P_ActivityKey) {
-        JsonObject ADChosenActivityData = P_ActivityData[P_ActivityKey].AsObject();
+    static List<object> ADMakeActivityConstructorList(string P_ActivityKey) {
+        JsonObject ADActivityData = ADGetJsonObject("ActivityData.json");
+        JsonObject ADChosenActivityData = ADActivityData[P_ActivityKey].AsObject();
         List<object> ConstructArgs = new();
         foreach (var ADValue in ADChosenActivityData.AsEnumerable().Select(p => p.Value)) {
             if (ADValue is JsonValue value) {
@@ -34,8 +53,8 @@ class Program {
         return ConstructArgs;
     }
 
-    static void ADRunActivity<T>(JsonObject P_ActivityData, string P_ActivityKey) where T : ADActivity, ADActivity.ADIRunnable {
-        List<object> ADConstructorArgs = ADMakeActivityConstructorList(P_ActivityData, P_ActivityKey);
+    static void ADRunActivity<T>(string P_ActivityKey) where T : ADActivity, ADActivity.ADIRunnable {
+        List<object> ADConstructorArgs = ADMakeActivityConstructorList(P_ActivityKey);
         T ADChosenActivity = (T)Activator.CreateInstance(typeof(T), ADConstructorArgs.ToArray());
         ADChosenActivity.ADRun();
     }
@@ -46,7 +65,8 @@ class Program {
         Console.WriteLine("    1. Breathing Activity");
         Console.WriteLine("    2. Reflection Activity");
         Console.WriteLine("    3. Listing Activity");
-        Console.WriteLine("    4. Quit");
+        Console.WriteLine("    4. Gratitude Activity");
+        Console.WriteLine("    5. Quit");
     }
 
     static int ADGetMenuSelection() {
@@ -58,7 +78,7 @@ class Program {
             string ADResponse = Console.ReadLine();
             // Check if valid number
             ADInvalidResponse = !int.TryParse(ADResponse, out ADOption);
-        } while (ADOption < 1 || ADOption > 4 || ADInvalidResponse);
+        } while (ADOption < 1 || ADOption > 5 || ADInvalidResponse);
         return ADOption;
     }
 
@@ -67,27 +87,26 @@ class Program {
         do {
             ADDisplayMenu();
             ADOption = ADGetMenuSelection(); 
-            JsonObject ADActivityData = ADGetJsonObject("ActivityData.json");
             switch (ADOption) {
-                case 1: {
-                    ADRunActivity<ADBreathing>(ADActivityData, "Breathing");
+                case 1: 
+                    ADRunActivity<ADBreathing>("Breathing");
                     break;
-                }
-                case 2: {
-                    ADRunActivity<ADReflection>(ADActivityData, "Reflection");
+                case 2: 
+                    ADRunActivity<ADReflection>("Reflection");
                     break;
-                }
-                case 3: {
-                    ADRunActivity<ADListing>(ADActivityData, "Listing");
+                case 3:
+                    ADRunActivity<ADListing>("Listing");
                     break;
-                }
                 case 4:
+                    ADRunActivity<ADGratitude>("Gratitude");
+                    break;
+                case 5:
                     Console.WriteLine("Thanks for using the Mindfulness Activity Program.");
                     break;
                 default:
                     Console.WriteLine("Menu option retrieval system is broken.");
                     break;
             }
-        } while (ADOption < 4);
+        } while (ADOption < 5);
     }
 }
