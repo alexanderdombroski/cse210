@@ -1,11 +1,9 @@
 {
   "Breathing": {
     "ActivityName": "Breathing",
-    "Description": "This activity will help you relax by walking your through breathing in and out slowly.",
+    "Description": "This activity will help you relax by walking your through breathing in and out slowly.\n\nClear your mind and focus on your breathing.",
     "EndMessage": "Taking time to meditate will help you calm your worries and remember the blessing of being alive.",
-    "Prompts": [
-      "Clear your mind and focus on your breathing."
-    ]
+    "Prompts": []
   },
   "Reflection": {
     "ActivityName": "Reflection",

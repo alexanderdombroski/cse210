@@ -6,9 +6,9 @@ class ADBreathing : ADActivity, ADActivity.ADIRunnable {
 
     // Methods:
     private static void ADDisplayBreathing() {
-        List<string> DotAnimationStages = new() {".", "..", "..", "", "", ""};
+        List<string> DotAnimationStages = new() {" ", ".", "..", "..", "", "", ""};
         Console.Write("Breath in, breath out ");
-        ADPauseMiliseconds(6000, DotAnimationStages, 1000);
+        ADPauseMiliseconds(7000, DotAnimationStages, 1000);
     }
 
     public void ADRun() {

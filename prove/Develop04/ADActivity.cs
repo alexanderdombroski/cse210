@@ -10,7 +10,7 @@ class ADActivity {
     private readonly string _ADActivityName;
     private readonly string _ADDescription;
     private readonly string _ADEndingMessage;
-    private int _ADDuration; // The duration of the pauses in the activity in miliseconds
+    private int _ADDuration; // The duration of the pauses in the activity in seconds
     private readonly List<string> _ADPrompts;
     private List<int> _ADUnusedPromptIndexes = new();
     
@@ -34,6 +34,16 @@ class ADActivity {
                 Console.Write("Please type a valid positive integer: ");
             }
         } while (_ADDuration == 0);
+    }
+    protected string ADGetRandomPrompt() {
+        if (_ADUnusedPromptIndexes.Count == 0) {
+            ADResetPrompts();
+        }
+        Random ADRndGen = new();
+        int ADIndex = ADRndGen.Next(_ADUnusedPromptIndexes.Count);
+        string ADPrompt = _ADPrompts[_ADUnusedPromptIndexes[ADIndex]];
+        _ADUnusedPromptIndexes.RemoveAt(ADIndex);
+        return ADPrompt;
     }
 
     public static void ADPauseMiliseconds(int P_PauseTime, List<string> P_AnimationCharList = null, int AnimationFrameInterval = 250) {
@@ -61,18 +71,8 @@ class ADActivity {
     protected void ADEndActivity() {
         Console.Clear();
         Console.WriteLine(_ADEndingMessage + '\n');
-        Console.Write("Press ENTER to return to the menu. ");
-        Console.ReadLine();
-    }
-    protected string ADGetRandomPrompt() {
-        if (_ADUnusedPromptIndexes.Count == 0) {
-            ADResetPrompts();
-        }
-        Random ADRndGen = new();
-        int ADIndex = ADRndGen.Next(_ADUnusedPromptIndexes.Count);
-        string ADPrompt = _ADPrompts[_ADUnusedPromptIndexes[ADIndex]];
-        _ADUnusedPromptIndexes.RemoveAt(ADIndex);
-        return ADPrompt;
+        Console.Write($"You have completed another {_ADDuration} seconds of the {_ADActivityName} Activity ");
+        ADPauseMiliseconds(6000);
     }
 
     protected void ADDoForDuration(Action P_VoidFunction) {
