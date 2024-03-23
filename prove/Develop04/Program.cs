@@ -12,7 +12,8 @@
     * Using Action and Func<T> datatypes
     * Using interfaces to require methods in child classes
     * Basic understanding of Generic methods and polymorphism
-*/ // C# is a pretty epic programming language!
+*/ 
+// C# is a pretty epic programming language!
 
 using System;
 using System.Text.Json;
@@ -29,11 +30,12 @@ class Program {
     }
 
     static List<string> ADJsonArrayToList(JsonArray P_JsonArray) {
-        // Convert a Json Array to a list using S
+        // Convert a Json Array to a str list
         return P_JsonArray.Select(node => node.ToString()).ToList();
     } 
     
     static List<object> ADMakeActivityConstructorList(string P_ActivityKey) {
+        // Read the ActivityData JSON file and make a Constructor Parameter List
         JsonObject ADActivityData = ADGetJsonObject("ActivityData.json");
         JsonObject ADChosenActivityData = ADActivityData[P_ActivityKey].AsObject();
         List<object> ConstructArgs = new();
@@ -54,12 +56,17 @@ class Program {
     }
 
     static void ADRunActivity<T>(string P_ActivityKey) where T : ADActivity, ADActivity.ADIRunnable {
+        // CREATIVITY - Requires a child class of ADActivity that utilizes the ADIrunnable interface methods.
+        // Read in the list of arguements that can be used in the class's constructor
+        // Create the class and call the class's run function
+        // This simplifies and enforces consistency in the creation of future ADActivity child classes
         List<object> ADConstructorArgs = ADMakeActivityConstructorList(P_ActivityKey);
         T ADChosenActivity = (T)Activator.CreateInstance(typeof(T), ADConstructorArgs.ToArray());
         ADChosenActivity.ADRun();
     }
 
     static void ADDisplayMenu() {
+        // Display the menu
         Console.Clear();
         Console.WriteLine("Please Select a Mindfulness Activity");
         Console.WriteLine("    1. Breathing Activity");

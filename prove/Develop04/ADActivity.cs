@@ -3,6 +3,7 @@ using System;
 class ADActivity {
     // Interfaces:
     public interface ADIRunnable {
+        // ADRun is required in every class that references this interface
         void ADRun();
     }
 
@@ -25,9 +26,11 @@ class ADActivity {
 
     // Methods:
     private void ADResetPrompts() {
+        // Creates a list of indexes matching the length of _ADPrompts
         _ADUnusedPromptIndexes = Enumerable.Range(0, _ADPrompts.Count).ToList();
     }
     protected void ADPromptDurationChange() {
+        // Gets input and Changes _ADDuration to a valid positive integer
         Console.Write("How long, in seconds, would you like to do this activity for?: ");
         do {
             if (!int.TryParse(Console.ReadLine(), out _ADDuration) || _ADDuration <= 0) {
@@ -36,6 +39,7 @@ class ADActivity {
         } while (_ADDuration <= 0);
     }
     protected string ADGetRandomPrompt() {
+        // Gets a random prompt, no repeat
         if (_ADUnusedPromptIndexes.Count == 0) {
             ADResetPrompts();
         }
@@ -47,6 +51,7 @@ class ADActivity {
     }
 
     public static void ADPauseMiliseconds(int P_PauseTime, List<string> P_AnimationCharList = null, int AnimationFrameInterval = 250) {
+        // Pauses for a length of time, and displays a given or default animation from a list
         P_AnimationCharList ??= new() {"+", "*", "#"};
         int ADAnimationCount = P_PauseTime / AnimationFrameInterval;
         for (int i=0; i<ADAnimationCount; i++) {
@@ -58,6 +63,7 @@ class ADActivity {
     }
 
     protected void ADStartActivity() {
+        // Displays start information of the activity
         Console.Clear();
         Console.WriteLine($"Welcome to the {_ADActivityName} Activity.\n");
         Console.WriteLine(_ADDescription + '\n');
@@ -69,6 +75,7 @@ class ADActivity {
     }
 
     protected void ADEndActivity() {
+        // Displays end information of the activty
         Console.Clear();
         Console.WriteLine(_ADEndingMessage + '\n');
         Console.Write($"You have completed another {_ADDuration} seconds of the {_ADActivityName} Activity ");
@@ -76,8 +83,11 @@ class ADActivity {
     }
 
     protected void ADDoForDuration(Action P_VoidFunction) => ADDoForDuration(P_VoidFunction, _ADDuration);
+    // Method overloading allows _ADDuration to be used as a default value, despite it not being a runtime constant
 
     protected static void ADDoForDuration(Action P_VoidFunction, int P_Duration) {
+        // Takes a duration and a void function. This function will run the passed function as many times as it can within the duration
+        // The passed function will not end early if the duration passes
         DateTime ADCurrentTime = DateTime.Now;
         DateTime ADEndTime = ADCurrentTime.AddSeconds(P_Duration);
         do {

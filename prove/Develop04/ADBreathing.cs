@@ -6,12 +6,14 @@ class ADBreathing : ADActivity, ADActivity.ADIRunnable {
 
     // Methods:
     private static void ADDisplayBreathing() {
+        // Prompts the user to breath, just in case they forget
         List<string> DotAnimationStages = new() {" ", ".", "..", "..", "", "", ""};
         Console.Write("Breath in, breath out ");
         ADPauseMiliseconds(7000, DotAnimationStages, 1000);
     }
 
     public void ADRun() {
+        // Runs the activity
         ADStartActivity();
         ADDoForDuration(ADDisplayBreathing);
         ADEndActivity();

@@ -12,9 +12,11 @@ class ADReflection : ADActivity, ADActivity.ADIRunnable {
     
     // Methods:
     private void ADResetQuestions() {
+        // Creates a list of indexes matching the length of _ADQuestionList
         _ADUnusedQuestionIndexes = Enumerable.Range(0, _ADQuestionList.Count).ToList();
     }
     private string ADGetRandomQuestion() {
+        // Gets Random Question, no repeat
         if (_ADUnusedQuestionIndexes.Count == 0) {
             ADResetQuestions();
         }
@@ -26,6 +28,7 @@ class ADReflection : ADActivity, ADActivity.ADIRunnable {
     }
 
     private void ADDisplayInstruction() {
+        // Display instructions
         Console.WriteLine("Consider the following prompt:\n");
         Console.WriteLine($"--- {ADGetRandomPrompt()} ---\n");
         Console.Write("When you have something in mind, press ENTER to continue. ");
@@ -37,11 +40,13 @@ class ADReflection : ADActivity, ADActivity.ADIRunnable {
     }
     
     private void ADDisplayQuestion() {
+        // Displays a random question and waits 7-8 seconds
         Console.Write($"> {ADGetRandomQuestion()} ");
         ADPauseMiliseconds(7500, new() {"?", "!", ":/", ")", "\b \b "}, 750);
     }
 
     public void ADRun() {
+        // Run function
         ADStartActivity();
         ADDisplayInstruction();
         ADDoForDuration(ADDisplayQuestion);
