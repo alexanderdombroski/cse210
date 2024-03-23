@@ -24,7 +24,7 @@ class ADListing : ADActivity, ADActivity.ADIRunnable {
     private void ADDisplayScore() {
         // Displays answer cound
         Console.Write($"You listed {_ADAnswerCount} items! Well done !! ");
-        ADPauseMiliseconds(6000);
+        ADPauseMiliseconds(4000);
     }
 
     // Methods:

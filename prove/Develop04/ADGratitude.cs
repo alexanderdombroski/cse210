@@ -32,7 +32,7 @@ class ADGratitude : ADActivity, ADActivity.ADIRunnable {
     private void ADDisplayScore() {
         // Displays the amount of items listed and gives time to read it
         Console.Write($"You listed {_ADItemsListed} items! Well done !! ");
-        ADPauseMiliseconds(6000);
+        ADPauseMiliseconds(4000);
     }
 
     public void ADRun() {
