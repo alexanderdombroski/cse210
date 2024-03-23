@@ -5,7 +5,7 @@ class ADActivity {
     private readonly string _ADStartingMessage;
     private readonly string _ADEndingMessage;
     private int _ADDuration; // The duration of the pauses in the activity in miliseconds
-    private readonly List<string> _ADPrompts = new();
+    private readonly List<string> _ADPrompts;
     private List<int> _ADUnusedPromptIndexes = new();
     
     // Constructors:
@@ -41,5 +41,9 @@ class ADActivity {
         string ADPrompt = _ADPrompts[_ADUnusedPromptIndexes[ADIndex]];
         _ADUnusedPromptIndexes.RemoveAt(ADIndex);
         return ADPrompt;
+    }
+
+    public interface ADIRunnable {
+        void ADRun();
     }
 }
