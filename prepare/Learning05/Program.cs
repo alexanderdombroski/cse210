@@ -6,9 +6,7 @@ class Program {
         Circle cir = new("orange", 4);
         Rectangle rect = new("blue", 5, 6);
         List<Shape> shapeList = new() {
-            tri,
-            cir,
-            rect
+            tri, cir, rect
         };
 
         shapeList.ForEach(s => Console.WriteLine($"{s.GetColor()}: {s.GetArea()}"));
