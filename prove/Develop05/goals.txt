@@ -1,0 +1,7 @@
+555
+Visible|ADEternal|Read Scriptures~75~False~4
+Visible|ADSimple|Get Internship~250~False
+Visible|ADSimple|Test Goals Program~20~True
+Visible|ADChecklist|Complete Math Homework~50~True~25~3~3
+Archived|ADSimple|Eat Pancakes~50~True
+Archived|ADChecklist|Get 3 Starr Drops~10~False~50~3~1
