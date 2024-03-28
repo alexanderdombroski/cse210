@@ -22,18 +22,7 @@ class Program {
             "  8. Quit"
         };
         ADMenuLines.ForEach(Console.WriteLine);
-        return ADGetValidInt("What would you like to do? ", 1, 8);
-    }
-    static int ADGetValidInt(string P_Prompt, int P_LowerBound, int P_UpperBound) {
-        // Repeatedly asks user for a menu option choice until a valid answer is given
-        bool ADInvalidResponse;
-        int ADReturnValue;
-        do {
-            Console.Write(P_Prompt);
-            string ADResponse = Console.ReadLine();
-            ADInvalidResponse = !int.TryParse(ADResponse, out ADReturnValue);
-        } while (ADReturnValue < P_LowerBound || ADReturnValue > P_UpperBound || ADInvalidResponse);
-        return ADReturnValue;
+        return ADIOUtility.ADGetValidInt("What would you like to do? ", 1, 8);
     }
     static ADGoal ADCreateGoalObject (string P_ClassName, List<object> P_Args) {
         Type ADType = Type.GetType(P_ClassName);
@@ -49,13 +38,13 @@ class Program {
             "  3. Checklist"
         };
         ADGoalTypesMenu.ForEach(Console.WriteLine);
-        int ADOption = ADGetValidInt("Select an option: ", 1, 3);
+        int ADOption = ADIOUtility.ADGetValidInt("Select an option: ", 1, 3);
 
         List<object> ADGoalInfo = new();
         // Get Goal Info
         Console.Write("Write a description for this goal: ");
         ADGoalInfo.Add(Console.ReadLine());
-        ADGoalInfo.Add(ADGetValidInt("How many points is recorded goal progress worth (Max 250)? ", 0, 250));
+        ADGoalInfo.Add(ADIOUtility.ADGetValidInt("How many points is recorded goal progress worth (Max 250)? ", 0, 250));
 
         // Create the goal
         switch (ADOption) {
@@ -66,12 +55,12 @@ class Program {
                 _ADGoalsList.Add(ADCreateGoalObject("ADEternal", ADGoalInfo));
                 break;
             case 3:
-                ADGoalInfo.Add(ADGetValidInt("How many bonus points is goal completion worth (Max 500)? ", 0, 500));
-                ADGoalInfo.Add(ADGetValidInt("How steps to complete this goal (Max 20)? ", 0, 20));
+                ADGoalInfo.Add(ADIOUtility.ADGetValidInt("How many bonus points is goal completion worth (Max 500)? ", 0, 500));
+                ADGoalInfo.Add(ADIOUtility.ADGetValidInt("How steps to complete this goal (Max 20)? ", 0, 20));
                 _ADGoalsList.Add(ADCreateGoalObject("ADChecklist", ADGoalInfo));
                 break;
             default:
-                Console.WriteLine("Error: Uknown goal option");
+                Console.WriteLine("Error: Unknown goal option");
                 break;
         }
     }
@@ -91,7 +80,7 @@ class Program {
             for (int i=0; i<_ADGoalsList.Count; i++) {
                 Console.WriteLine($"  {i+1}. {_ADGoalsList[i].ADToEvent()}");
             }
-            int ADGoalIndex = ADGetValidInt("Which goal do you choose? ", 1, _ADGoalsList.Count) - 1;
+            int ADGoalIndex = ADIOUtility.ADGetValidInt("Which goal do you choose? ", 1, _ADGoalsList.Count) - 1;
             return _ADGoalsList[ADGoalIndex];
         }
     }
@@ -101,13 +90,8 @@ class Program {
             _ADTotalPoints += ADSelectedGoal.ADMarkComplete();
         }
     }
-    static string ADGetFileName(string P_Prompt) {
-        Console.Write(P_Prompt);
-        string ADFileName = Console.ReadLine();
-        return ADFileName.Contains('.') ? ADFileName : ADFileName + ".txt";
-    }
     static void ADSaveGoals() {
-        string ADFileName = ADGetFileName("What do you want to name your save file? ");
+        string ADFileName = ADIOUtility.ADGetFileName("What do you want to name your save file? ");
         using (StreamWriter ADGoalFile = new(ADFileName)) {
             ADGoalFile.WriteLine(_ADTotalPoints);
             _ADGoalsList.ForEach(goal => ADGoalFile.WriteLine($"Visible|{goal.ADToCSV()}"));
@@ -117,7 +101,7 @@ class Program {
     }
     static void ADLoadGoals() {
         try {
-            string ADFileName = ADGetFileName("What file do you want to load from? ");
+            string ADFileName = ADIOUtility.ADGetFileName("What file do you want to load from? ");
             string[] ADLines = File.ReadAllLines(ADFileName);
             bool ADFirstLine = true;
             foreach(string ADLine in ADLines) {
@@ -127,7 +111,7 @@ class Program {
                 } else {
                     string[] ADParts = ADLine.Split('|');
                     object[] ADArgs = ADParts[2].Split('~');
-                    ADGoal LineGoal = ADCreateGoalObject(ADParts[1], ADUnparseArray(ADArgs).ToList());
+                    ADGoal LineGoal = ADCreateGoalObject(ADParts[1], ADIOUtility.ADUnparseArray(ADArgs).ToList());
                     if (ADParts[0] == "Archived") {
                         _ADArchivedGoals.Add(LineGoal);
                     } else {
@@ -139,19 +123,6 @@ class Program {
         } catch {
             Console.WriteLine("The file doesn't exist or is missing");
         }
-    }
-    static object[] ADUnparseArray(object[] P_Array) {
-        object[] ADReturnArray = new object[P_Array.Length];
-        for(int i=0; i<P_Array.Length; i++) {
-            if (int.TryParse(P_Array[i] as string, out int ADIntValue)) {
-                ADReturnArray[i] = ADIntValue;
-            } else if (bool.TryParse(P_Array[i] as string, out bool ADBoolValue)) {
-                ADReturnArray[i] = ADBoolValue;
-            } else {
-                ADReturnArray[i] = P_Array[i];
-            }
-        }
-        return ADReturnArray;
     }
     static void ADArchiveGoal() {
         ADGoal SelectedGoal = ADPickGoal();

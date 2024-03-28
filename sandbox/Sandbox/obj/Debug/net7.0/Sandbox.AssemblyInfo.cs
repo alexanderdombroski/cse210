@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sandbox")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b455e10176c18b07f967a933e5c212d21b3b811")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2bd087703109fdf8a7e73c9c7ddad490bcc66e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sandbox")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sandbox")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
