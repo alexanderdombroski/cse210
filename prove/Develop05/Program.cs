@@ -29,6 +29,7 @@ class Program {
         object ADInstance = Activator.CreateInstance(ADType, P_Args.ToArray());
         return ADInstance as ADGoal;
     }
+    // --------------- Menu Option 1 --------------- //
     static void ADCreateGoal() {
         // Get Goal Type
         List<string> ADGoalTypesMenu = new() {
@@ -64,6 +65,7 @@ class Program {
                 break;
         }
     }
+    // --------------- Menu Option 2/7 --------------- //
     static void ADDisplayGoals(List<ADGoal> P_GoalList) {
         if (P_GoalList.Count == 0) {
             Console.WriteLine("There are no goals to display");
@@ -71,6 +73,7 @@ class Program {
             P_GoalList.ForEach(goal => Console.WriteLine(goal.ADToString()));
         }
     }
+    // --------------- Menu Option 3 --------------- //
     static ADGoal ADPickGoal() {
         if (_ADGoalsList.Count == 0) {
             Console.WriteLine("You haven't entered any goals.");
@@ -90,6 +93,7 @@ class Program {
             _ADTotalPoints += ADSelectedGoal.ADMarkComplete();
         }
     }
+    // --------------- Menu Option 4 --------------- //
     static void ADSaveGoals() {
         string ADFileName = ADIOUtility.ADGetFileName("What do you want to name your save file? ");
         using (StreamWriter ADGoalFile = new(ADFileName)) {
@@ -99,6 +103,7 @@ class Program {
         }
         Console.WriteLine($"Goals saved in {ADFileName}");
     }
+    // --------------- Menu Option 5 --------------- //
     static void ADLoadGoals() {
         try {
             string ADFileName = ADIOUtility.ADGetFileName("What file do you want to load from? ");
@@ -124,12 +129,15 @@ class Program {
             Console.WriteLine("The file doesn't exist or is missing");
         }
     }
+    // --------------- Menu Option 6 --------------- //
     static void ADArchiveGoal() {
         ADGoal SelectedGoal = ADPickGoal();
         _ADArchivedGoals.Add(SelectedGoal);
         _ADGoalsList.Remove(SelectedGoal);
     }
 
+    
+    
     static void Main(string[] args) {
         int ADUserSelection;
         do {
