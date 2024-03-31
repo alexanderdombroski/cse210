@@ -9,6 +9,7 @@ class Program {
 
     // Methods
     static int ADDisplayMenu() {
+        // Display Menu and get user option
         List<string> ADMenuLines = new() {
             $"\nYou Have {_ADTotalPoints} points",
             "\nMENU OPTIONS:",
@@ -25,6 +26,7 @@ class Program {
         return ADIOUtility.ADGetValidInt("What would you like to do? ", 1, 8);
     }
     static ADGoal ADCreateGoalObject (string P_ClassName, List<object> P_Args) {
+        // Create an instance of any child class of ADGoal
         Type ADType = Type.GetType(P_ClassName);
         object ADInstance = Activator.CreateInstance(ADType, P_Args.ToArray());
         return ADInstance as ADGoal;
@@ -67,6 +69,7 @@ class Program {
     }
     // --------------- Menu Option 2/7 --------------- //
     static void ADDisplayGoals(List<ADGoal> P_GoalList) {
+        // Display goals
         if (P_GoalList.Count == 0) {
             Console.WriteLine("There are no goals to display");
         } else {
@@ -75,6 +78,7 @@ class Program {
     }
     // --------------- Menu Option 3 --------------- //
     static ADGoal ADPickGoal() {
+        // Allow the user to pick a goal from _ADGoalsList
         if (_ADGoalsList.Count == 0) {
             Console.WriteLine("You haven't entered any goals.");
             return null;
@@ -88,6 +92,7 @@ class Program {
         }
     }
     static void ADRecordGoalProgress() {
+        // Mark a goal as complete
         ADGoal ADSelectedGoal = ADPickGoal();
         if (ADSelectedGoal != null) {
             _ADTotalPoints += ADSelectedGoal.ADMarkComplete();
@@ -95,6 +100,7 @@ class Program {
     }
     // --------------- Menu Option 4 --------------- //
     static void ADSaveGoals() {
+        // Write Goal info to a file
         string ADFileName = ADIOUtility.ADGetFileName("What do you want to name your save file? ");
         using (StreamWriter ADGoalFile = new(ADFileName)) {
             ADGoalFile.WriteLine(_ADTotalPoints);
@@ -105,6 +111,7 @@ class Program {
     }
     // --------------- Menu Option 5 --------------- //
     static void ADLoadGoals() {
+        // Load goal info from a file
         try {
             string ADFileName = ADIOUtility.ADGetFileName("What file do you want to load from? ");
             string[] ADLines = File.ReadAllLines(ADFileName);
@@ -131,6 +138,7 @@ class Program {
     }
     // --------------- Menu Option 6 --------------- //
     static void ADArchiveGoal() {
+        // Move a goal to the archived list
         ADGoal SelectedGoal = ADPickGoal();
         _ADArchivedGoals.Add(SelectedGoal);
         _ADGoalsList.Remove(SelectedGoal);
