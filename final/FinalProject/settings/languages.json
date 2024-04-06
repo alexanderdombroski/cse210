@@ -1,0 +1,22 @@
+{
+  "Python": [
+    "python.json",
+    "py"
+  ],
+  "C#": [
+    "csharp.json",
+    "cs"
+  ],
+  "C": [
+    "c.json",
+    "c"
+  ],
+  "HTML": [
+    "html.json",
+    "html"
+  ],
+  "JavaScript": [
+    "javascript.json",
+    "js"
+  ]
+}

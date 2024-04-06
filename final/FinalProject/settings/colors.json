@@ -1,0 +1,17 @@
+{
+    "Python": {
+        "Blue": ["def", "class", "lambda"],
+        "Magenta": ["from", "import", "while", "for", "break", "pass", "with"],
+        "Green": ["if", "elif", "else", "try", "except", "finally", "match", "case"]
+    },
+    "C#": {
+        "Green": ["List", "Action", "Dictionary", "Set", "Func"],
+        "Blue": ["string", "int", "double", "float", "bool", "void"],
+        "Cyan": ["if", "else", "try", "catch", "switch", "case"],
+        "Magenta": ["for", "foreach", "while", "do"],
+        "DarkGreen": ["public", "interface", "abstract", "virtual", "class", "struct", "private", "protected", "readonly"]
+    },
+    "C": {},
+    "HTML": {},
+    "JavaScript": {}
+}

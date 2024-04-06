@@ -1,32 +1,38 @@
 using System;
+using System.Text;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        // Console.WriteLine("Hello Sandbox World!");
-        // Console.Write("What is your first name: ");
-        // string firstName = Console.ReadLine();
-        // Console.Write("What is your last name: ");
-        // string lastName = Console.ReadLine();
-        // Console.WriteLine("You are " + lastName + ", " + firstName + ' ' + lastName);
-        // Console.WriteLine($"You are {lastName}, {firstName} {lastName}");
-        // Console.WriteLine("You are {0}, {1} {0}", lastName, firstName);
-        // Console.WriteLine(String.Format("You are {0}, {1} {0}", lastName, firstName));
+class Program {
+    
+    static void Main(string[] args) {
+        // Chat GPT example of text coloring
+        string sentence = "The quick brown fox jumps over the lazy dog";
+        string[] words = sentence.Split(' ');
 
-        // int int1 = 5;
-        // int int2 = 2;
-        // if (int1 > int2) {
-        //     Console.WriteLine($"{int1} is greater than {int2}");
-        // } else if (int1 < int2) {
-        //     Console.WriteLine($"{int1} is less than {int2}");
-        // } else {
-        //     Console.WriteLine($"{int1} equals {int2}");
-        // }
-
-        List<string> wordList = new() {
-            "Hello",
-            "World"
+        ConsoleColor[] rainbowColors = {
+            ConsoleColor.Red,
+            ConsoleColor.Yellow,
+            ConsoleColor.Green,
+            ConsoleColor.Blue,
+            ConsoleColor.Magenta,
+            ConsoleColor.Cyan
         };
+
+        int colorIndex = 0;
+
+        foreach (string word in words) {
+            // Set text color to the current rainbow color
+            Console.ForegroundColor = rainbowColors[colorIndex];
+
+            // Print the word with the current color
+            Console.Write(word + " ");
+
+            // Increment color index and wrap around if necessary
+            colorIndex = (colorIndex + 1) % rainbowColors.Length;
+        }
+
+        // Reset text color to default
+        Console.ResetColor();
+        Console.WriteLine();
+
     }
 }
