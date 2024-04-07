@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.IO;
 public static class ConsoleUtility {
     // Methods:
     private static void ColorWrite(string output, char delimiter, Dictionary<string, ConsoleColor> colorKey) {
@@ -40,5 +41,25 @@ public static class ConsoleUtility {
     public static void WaitForUser() {
         Console.Write("\nPress ENTER to Continue");
         Console.ReadLine();
+    }
+    public static string GetAbsolutePath(string prompt = "Type the file path: ") {
+        bool InvalidResponse = true;
+        string response = "";
+        while (InvalidResponse) {
+            Console.Write(prompt);
+            response = Console.ReadLine();
+            if (!Path.IsPathRooted(response)) {
+                response = Path.GetFullPath(response);
+            }
+            if (Directory.Exists(response)) {
+                InvalidResponse = false;
+            } else {
+                Console.WriteLine("Enter a valid path");
+            }
+        }
+        if (!response.EndsWith('/')) {
+            response += '/';
+        }
+        return response;
     }
 }

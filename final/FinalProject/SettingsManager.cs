@@ -21,13 +21,10 @@ public class SettingsManager : MenuUtility.IMenu {
         );
         switch (menuChoice) {
             case 1:
-                Console.Write("Type the full file path (include final '/'): ");
-                _settings["snippets_path"] = Console.ReadLine();
+                _settings["snippets_path"] = ConsoleUtility.GetAbsolutePath("Type the full file path (include final '/'): ");
                 break;
             case 2:
                 _settings["snippets_path"] = "snippets/";
-                break;
-            default:
                 break;
         }
         Console.Write("Settings Updated ");

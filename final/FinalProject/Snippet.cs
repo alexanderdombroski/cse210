@@ -15,6 +15,12 @@ public class Snippet {
         _description = description;
         _body = body;
     }
+    public Snippet(string title, JsonObject jsonData) {
+        _title = title;
+        _keyword = jsonData["prefix"].ToString();
+        _description = jsonData["description"].ToString();
+        _body = jsonData["body"].AsArray().Select(line => line.ToString()).ToList();
+    }
 
     // Methods:
     public void DisplaySnippet(Dictionary<string, ConsoleColor> colorKey) {
@@ -23,18 +29,18 @@ public class Snippet {
     public void DisplaySnippet() {
         _body.ForEach(Console.WriteLine);
     }
-    public KeyValuePair<string, JsonObject> ToJson() {
-        JsonObject returnObject = new() {
+    public KeyValuePair<string, JsonNode> ToJson() {
+        JsonNode returnObject = new JsonObject {
             {"prefix", _keyword},
             {"body", JsonValue.Create(_body)},
             {"description", _description}
         };
-        return new KeyValuePair<string, JsonObject>(_title, returnObject);
+        return new KeyValuePair<string, JsonNode>(_title, returnObject);
     }
     public string ToShortString() {
         return $"{_keyword}: {_title}";
     }
     public string ToLongString() {
-        return $"{_keyword}: {_title}\n{_description}\n";
+        return $"{_keyword}: {_title}\n > {_description}";
     }
 }

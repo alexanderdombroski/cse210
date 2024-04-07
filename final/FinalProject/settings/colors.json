@@ -7,8 +7,8 @@
     "C#": {
         "Green": ["List", "Action", "Dictionary", "Set", "Func"],
         "Blue": ["string", "int", "double", "float", "bool", "void"],
-        "Cyan": ["if", "else", "try", "catch", "switch", "case"],
-        "Magenta": ["for", "foreach", "while", "do"],
+        "Cyan": ["if", "else", "try", "catch", "switch", "case", "default"],
+        "Magenta": ["for", "foreach", "while", "do", "break"],
         "DarkGreen": ["public", "interface", "abstract", "virtual", "class", "struct", "private", "protected", "readonly"]
     },
     "C": {},

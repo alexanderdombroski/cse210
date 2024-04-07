@@ -1,10 +1,12 @@
 using System;
 
 class Program {
-    static void Main(string[] args) {        
+    static void InitSnippets() {
         SnippetManager snippetsManager = new();
+        snippetsManager.RunMenu();
+    }
+    static void Main(string[] args) {        
         SettingsManager settingsManager = new();
-        
         MenuUtility.RunMenu(
             "Main Menu Options:",
             new List<string> {
@@ -13,7 +15,7 @@ class Program {
                 "Quit"
             },
             new List<Action> {
-                snippetsManager.RunMenu,
+                InitSnippets,
                 settingsManager.RunMenu
             }
         );

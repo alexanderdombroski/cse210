@@ -11,7 +11,6 @@ public class SnippetManager : MenuUtility.IMenu {
     private string _languageExtension;
     private string _snippetPath;
 
-
     // Constructors:
     public SnippetManager() {
         JsonObject settings = JsonIO.DeserializeJsonObject("settings/settings.json");
@@ -21,6 +20,7 @@ public class SnippetManager : MenuUtility.IMenu {
         _languageExtension = languages[_language][1].ToString();
         ColorMapper colmap = new(_language);
         _colorKey = colmap.GetColorData();
+        LoadSnippets();
     }
 
     // Methods:
@@ -33,6 +33,8 @@ public class SnippetManager : MenuUtility.IMenu {
         }
     }
     private void DisplaySnippetsList() {
+        Console.Clear();
+        Console.WriteLine($"{_language} Snippets");
         _snippets.ForEach(snippet => Console.WriteLine(snippet.ToLongString()));
         ConsoleUtility.WaitForUser();
     }
@@ -71,10 +73,23 @@ public class SnippetManager : MenuUtility.IMenu {
         _snippets.RemoveAt(removeOption);
     }
     private void LoadSnippets() {
-
+        JsonObject snippets = JsonIO.DeserializeJsonObject(_snippetPath);
+        if (snippets != null) {
+            foreach (var kv in snippets.ToList()) {
+                Snippet snippet =  new(
+                    kv.Key.ToString(), 
+                    kv.Value.AsObject()
+                );
+                _snippets.Add(snippet);
+            }
+        }     
     }
     private void SaveSnippets() {
-
+        JsonObject saveData = new();
+        _snippets.ForEach(snippet => saveData.Add(snippet.ToJson()));
+        JsonIO.SerializeJsonObject(_snippetPath, saveData);
+        Console.Write("Data Saved ");
+        ConsoleUtility.PauseMiliseconds(1000);
     }
     public void RunMenu() {
         MenuUtility.RunMenu(
@@ -84,7 +99,6 @@ public class SnippetManager : MenuUtility.IMenu {
                 "View Snippet Code",
                 "Create Snippet",
                 "Delete Snippet",
-                "Load Snippet",
                 "Save Snippets",
                 "Return to Main Menu"
             },
@@ -92,8 +106,7 @@ public class SnippetManager : MenuUtility.IMenu {
                 () => HandleNoSnippets(DisplaySnippetsList),
                 () => HandleNoSnippets(DisplaySnippetCode),
                 CreateSnippet,
-                DeleteSnippet,
-                LoadSnippets,
+                () => HandleNoSnippets(DeleteSnippet),
                 () => HandleNoSnippets(SaveSnippets)
             }
         );
