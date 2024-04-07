@@ -21,4 +21,7 @@ public static class JsonIO {
         string jsonString = JsonSerializer.Serialize(jsonObject, indentOption);
         File.WriteAllText(filename, jsonString);
     }
+    public static void CreateEmptyJsonObject(string filename) {
+        File.WriteAllText(filename, "{}");
+    }
 }
