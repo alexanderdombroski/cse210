@@ -57,7 +57,7 @@ public class SnippetManager : MenuUtility.IMenu {
         Console.Write("What is the description: ");
         string description = Console.ReadLine();
         using (File.Create(filePath)) {};
-        Console.WriteLine($"Insert the code into the file CustomSnippet.{_languageExtension} in the CustomCode folder");
+        Console.WriteLine($"Insert the code into the file CustomSnippet.{_languageExtension} in the\nCustomCode folder located in the same directory as this file");
         Console.WriteLine("SAVE AND CLOSE THE FIlE, then come back here.");
         ConsoleUtility.WaitForUser();
         string[] body = CodeReader.ReadInCode(filePath);

@@ -6,5 +6,18 @@
       "    pass"
     ],
     "description": "open a file using with method"
+  },
+  "Match Case": {
+    "prefix": "match",
+    "body": [
+      "match x:",
+      "    case 0:",
+      "        pass",
+      "    case 1:",
+      "        pass",
+      "    case _:",
+      "        print(\u0022default\u0022)"
+    ],
+    "description": "Create a match case with two cases and a default"
   }
 }

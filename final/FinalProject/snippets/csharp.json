@@ -1,0 +1,34 @@
+{
+  "Public Class": {
+    "prefix": "class",
+    "body": [
+      "public class ClassName {",
+      "    // Attributes:",
+      "",
+      "    // Constructors:",
+      "    public ClassName() {}",
+      "",
+      "    // Methods:",
+      "",
+      "}"
+    ],
+    "description": "Create a class with a constructor"
+  },
+  "Switch Case": {
+    "prefix": "switch",
+    "body": [
+      "switch (TestVariable) {",
+      "    case 1:",
+      "        ",
+      "        break;",
+      "    case 2:",
+      "        ",
+      "        break;",
+      "    default:",
+      "        ",
+      "        break;",
+      "}"
+    ],
+    "description": "Create a switch case with two cases and a default"
+  }
+}

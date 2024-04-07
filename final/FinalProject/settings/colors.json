@@ -1,8 +1,10 @@
 {
     "Python": {
-        "Blue": ["def", "class", "lambda"],
-        "Magenta": ["from", "import", "while", "for", "break", "pass", "with", "as", "in"],
-        "Green": ["if", "elif", "else", "try", "except", "finally", "match", "case"]
+        "Blue": ["def", "class", "lambda", "async", "await", "yield", "global", "nonlocal", "del"],
+        "Cyan": ["__init__", "__call__", "__name__", "__main__", "__dict__", "__str__", "__repr__"],
+        "Magenta": ["from", "import", "while", "for", "break", "pass", "with", "as", "in", "raise", "continue"],
+        "Green": ["if", "elif", "else", "try", "except", "finally", "match", "case"],
+        "DarkYellow": ["print", "input", "len", "range", "type", "id", "str", "int", "float", "list", "dict", "set", "tuple", "zip", "strip", "split", "enumerate"]
     },
     "C#": {
         "Green": ["List", "Action", "Dictionary", "Set", "Func"],
