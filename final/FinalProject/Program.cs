@@ -5,8 +5,11 @@ class Program {
         SnippetManager snippetsManager = new();
         snippetsManager.RunMenu();
     }
-    static void Main(string[] args) {        
+    static void InitSettings() {
         SettingsManager settingsManager = new();
+        settingsManager.RunMenu();
+    }
+    static void Main(string[] args) {        
         MenuUtility.RunMenu(
             "Main Menu Options:",
             new List<string> {
@@ -16,7 +19,7 @@ class Program {
             },
             new List<Action> {
                 InitSnippets,
-                settingsManager.RunMenu
+                InitSettings
             }
         );
         Console.WriteLine("Good Luck Coding!");

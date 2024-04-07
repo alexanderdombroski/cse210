@@ -17,6 +17,9 @@ public class SnippetManager : MenuUtility.IMenu {
         JsonObject languages = JsonIO.DeserializeJsonObject("settings/languages.json");
         _language = settings["selected_language"].ToString();
         _snippetPath = settings["snippets_path"].ToString() + languages[_language][0];
+        if (!File.Exists(_snippetPath)) {
+            JsonIO.CreateEmptyJsonObject(_snippetPath);
+        }
         _languageExtension = languages[_language][1].ToString();
         ColorMapper colmap = new(_language);
         _colorKey = colmap.GetColorData();

@@ -1,0 +1,10 @@
+{
+  "Read a file": {
+    "prefix": "read",
+    "body": [
+      "with open(\u0022filepath\u0022, \u0027r\u0027) as file:",
+      "    pass"
+    ],
+    "description": "open a file using with method"
+  }
+}
