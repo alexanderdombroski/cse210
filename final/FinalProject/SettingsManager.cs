@@ -5,12 +5,14 @@ public class SettingsManager : MenuUtility.IMenu {
 
     // Constructors:
     public SettingsManager() {
+        // Initailizes the _settings dictionary
         JsonObject settings = JsonIO.DeserializeJsonObject("settings/settings.json");
         _settings = settings.ToDictionary(kv => kv.Key, kv => kv.Value.ToString());
     }
 
     // Methods:
     private void ConfigureSnippetDestination() {
+        // Allows the user to change the snippet destination, and saves their choice.
         int menuChoice = MenuUtility.DisplayMenu(
             "Pick a folder to store snippet json files in: ",
             new List<string> {
@@ -32,15 +34,18 @@ public class SettingsManager : MenuUtility.IMenu {
         UpdateSettings();
     }
     private void ManageLanguages() {
+        // Open the language settings menu
         LanguageManager languageManager = new();
         languageManager.RunMenu();
     }
     protected void UpdateSettings() {
+        // Updates the settings.json file with the current settings
         JsonObject saveData = new();
         _settings.ToList().ForEach(kv => saveData.Add(kv.Key, kv.Value));        
         JsonIO.SerializeJsonObject("settings/settings.json", saveData);
     }
     public void RunMenu() {
+        // Builds a settings menu
         MenuUtility.RunMenu(
             "Settings Menu:",
             new List<string> {

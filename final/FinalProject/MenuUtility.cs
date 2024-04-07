@@ -1,6 +1,7 @@
 public static class MenuUtility {
     // Methods:
     public static void RunMenu(string menuTitle, List<string> menuOptions, List<Action> menuFunctions) {
+        // Function that builds a menu, gets user option, and runs the function associated with it.
         int menuChoice;
         do {
             menuChoice = DisplayMenu(menuTitle, menuOptions);
@@ -9,6 +10,7 @@ public static class MenuUtility {
         } while (menuChoice != menuOptions.Count);
     }
     public static int DisplayMenu(string menuTitle, List<string> menuOptions, string prompt = "Which one do you choose? ") {
+        // Builds a menu and gets a valid option (by it's number)
         Console.Clear();
         Console.WriteLine(menuTitle);
         for (int i=0; i<menuOptions.Count; i++) {
@@ -28,6 +30,7 @@ public static class MenuUtility {
         return returnValue;
     }
     public interface IMenu {
+        // Interface closely associated with the static methods of this class
         public void RunMenu();
     }
 }

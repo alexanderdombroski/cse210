@@ -9,7 +9,8 @@ class Program {
         SettingsManager settingsManager = new();
         settingsManager.RunMenu();
     }
-    static void Main(string[] args) {        
+    static void Main(string[] args) {    
+        // Builds the main menu    
         MenuUtility.RunMenu(
             "Main Menu Options:",
             new List<string> {

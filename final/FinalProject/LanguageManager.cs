@@ -7,17 +7,20 @@ public class LanguageManager : SettingsManager, MenuUtility.IMenu {
 
     // Constructors:
     public LanguageManager() {
+        // Initializes the _languageData dictionary
         JsonObject filenames = JsonIO.DeserializeJsonObject("settings/languages.json");
         _languageData = filenames.ToDictionary(kv => kv.Key, kv => kv.Value.AsArray().Select(array => array.ToString()).ToList());
     }
     // Methods:
     private void SelectLanguage() {
+        // Prompts the user to select a language, and updates it in the file
         var KeyValueList = _languageData.ToList();
         int SelectionIndex = MenuUtility.DisplayMenu("Select a Language", KeyValueList.Select(kv => kv.Key).ToList());
         _settings["selected_language"] = KeyValueList[SelectionIndex - 1].Key;
         UpdateSettings();
     }
     private void AddLanguage() {
+        // Allows the user to add data need for a new programming language
         Console.Write("What is the name of the language: ");
         string language = Console.ReadLine();
         Console.Write("Type the name of the file to store snippets (ie css.json): ");
@@ -28,6 +31,7 @@ public class LanguageManager : SettingsManager, MenuUtility.IMenu {
         SaveLanguages();
     }
     private void RemoveLanguage() {
+        // Creates a menu and allows the user to delete language-related data and snippets 
         var KeyValueList = _languageData.ToList();
         int RemoveIndex = MenuUtility.DisplayMenu("Remove a Language from manager (this will also delete the snippet file)", KeyValueList.Select(kv => kv.Key).ToList());
         string filePath = _settings["snippets_path"] + _languageData[KeyValueList[RemoveIndex - 1].Key][0];
@@ -39,6 +43,7 @@ public class LanguageManager : SettingsManager, MenuUtility.IMenu {
         SaveLanguages();
     }
     private void SaveLanguages() {
+        // Updates the language settings
         JsonObject saveData = new();
         _languageData.ToList().ForEach(kv => saveData.Add(kv.Key, JsonValue.Create(kv.Value)));        
         JsonIO.SerializeJsonObject("settings/languages.json", saveData);
@@ -46,6 +51,7 @@ public class LanguageManager : SettingsManager, MenuUtility.IMenu {
         ConsoleUtility.PauseMiliseconds(1000);
     } 
     public new void RunMenu() {
+        // Creates a language settings menu and maps each option to a function
         MenuUtility.RunMenu(
             "Language Settings:",
             new List<string> {

@@ -4,6 +4,7 @@ using System.IO;
 public static class ConsoleUtility {
     // Methods:
     private static void ColorWrite(string output, char delimiter, Dictionary<string, ConsoleColor> colorKey) {
+        // Writes a single word in the correct color, and writes the character after the word (ie space)
         if (colorKey.TryGetValue(output, out ConsoleColor color)) {
             Console.ForegroundColor = color;
             Console.Write(output);
@@ -15,6 +16,7 @@ public static class ConsoleUtility {
     }
 
     public static void ColorPassage(string output, Dictionary<string, ConsoleColor> colorKey) {
+        // Writes a passage of words and colors them
         List<char> delimiters = new() {' ', ',', ';', ':', '.', '?', '!', '{', '}', '(', ')', '[', ']', '<', '>'};
         StringBuilder currentWord = new();
         foreach (char c in output) {
@@ -39,10 +41,12 @@ public static class ConsoleUtility {
         Console.WriteLine();
     }
     public static void WaitForUser() {
+        // Prompts the user to press ENTER
         Console.Write("\nPress ENTER to Continue");
         Console.ReadLine();
     }
     public static string GetAbsolutePath(string prompt = "Type the file path: ") {
+        // Gets a filepath, checks validity, and returns it
         bool InvalidResponse = true;
         string response = "";
         while (InvalidResponse) {

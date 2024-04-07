@@ -13,11 +13,13 @@ public class SnippetManager : MenuUtility.IMenu {
 
     // Constructors:
     public SnippetManager() {
+        // Initialze all data needed for managing snippets
         JsonObject settings = JsonIO.DeserializeJsonObject("settings/settings.json");
         JsonObject languages = JsonIO.DeserializeJsonObject("settings/languages.json");
         _language = settings["selected_language"].ToString();
         _snippetPath = settings["snippets_path"].ToString() + languages[_language][0];
-        if (!File.Exists(_snippetPath)) {
+        if (!File.Exists(_snippetPath)) { 
+            // Creates an empty snippets file if if there is none
             JsonIO.CreateEmptyJsonObject(_snippetPath);
         }
         _languageExtension = languages[_language][1].ToString();
@@ -28,6 +30,7 @@ public class SnippetManager : MenuUtility.IMenu {
 
     // Methods:
     private void HandleNoSnippets(Action action) {
+        // Pass in methods to make them only run if snippets exist
         if (_snippets.Count == 0) {
             Console.Write("There are no snippets ");
             ConsoleUtility.PauseMiliseconds(1000);
@@ -36,26 +39,32 @@ public class SnippetManager : MenuUtility.IMenu {
         }
     }
     private void DisplaySnippetsList() {
+        // Display a list of snippet details
         Console.Clear();
         Console.WriteLine($"{_language} Snippets");
         _snippets.ForEach(snippet => Console.WriteLine(snippet.ToLongString()));
         ConsoleUtility.WaitForUser();
     }
     private void DisplaySnippetCode() {
+        // Display code from the snippet of choice
         _snippets[ChooseSnippet()].DisplaySnippet(_colorKey);
         ConsoleUtility.WaitForUser();
     }
     private int ChooseSnippet() {
+        // Builds a menu and allows user to pick a snippet
         return MenuUtility.DisplayMenu("Choose a snippet", _snippets.Select(snippet => snippet.ToShortString()).ToList()) - 1;
     }
     private void CreateSnippet() {
-        string filePath = $"CustomCode/CustomSnippet.{_languageExtension}";
+        // Gets snippet details from the terminal
         Console.Write("What is the title: ");
         string title = Console.ReadLine();
         Console.Write("What is the keyword: ");
         string keyword = Console.ReadLine();
         Console.Write("What is the description: ");
         string description = Console.ReadLine();
+
+        // Prompts the user to input snippet code in a temporary file.
+        string filePath = $"CustomCode/CustomSnippet.{_languageExtension}";
         using (File.Create(filePath)) {};
         Console.WriteLine($"Insert the code into the file CustomSnippet.{_languageExtension} in the\nCustomCode folder located in the same directory as this file");
         Console.WriteLine("SAVE AND CLOSE THE FIlE, then come back here.");
@@ -72,10 +81,12 @@ public class SnippetManager : MenuUtility.IMenu {
         ConsoleUtility.PauseMiliseconds(1000);
     }
     private void DeleteSnippet() {
+        // Prompts the user to delete a snippet
         int removeOption = ChooseSnippet();
         _snippets.RemoveAt(removeOption);
     }
     private void LoadSnippets() {
+        // Load in snippets from a json file
         JsonObject snippets = JsonIO.DeserializeJsonObject(_snippetPath);
         if (snippets != null) {
             foreach (var kv in snippets.ToList()) {
@@ -88,6 +99,7 @@ public class SnippetManager : MenuUtility.IMenu {
         }     
     }
     private void SaveSnippets() {
+        // Write snippets to a json file
         JsonObject saveData = new();
         _snippets.ForEach(snippet => saveData.Add(snippet.ToJson()));
         JsonIO.SerializeJsonObject(_snippetPath, saveData);
@@ -95,6 +107,7 @@ public class SnippetManager : MenuUtility.IMenu {
         ConsoleUtility.PauseMiliseconds(1000);
     }
     public void RunMenu() {
+        // Builds the menu for the snippet manager
         MenuUtility.RunMenu(
             $"{_language} Snippet Menu Options:",
             new List<string> {

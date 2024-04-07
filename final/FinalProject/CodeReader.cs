@@ -5,6 +5,8 @@ using System.IO;
 public static class CodeReader {
     // Methods:
     public static string[] ReadInCode(string filePath) {
+        // Attempts to read in code, and and has optional functionality to handle if the file is locked by a process. 
+        // The file should not be locked if it was written with VSCode
         int maxAttempts = 5;
         int attempts = 0;
         while (attempts < maxAttempts) {

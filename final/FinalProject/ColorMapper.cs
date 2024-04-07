@@ -5,6 +5,7 @@ public class ColorMapper {
 
     // Constructors:
     public ColorMapper(string language) {
+        // Organizes the colors from the file into a dictionary.
         JsonObject colorData = JsonIO.DeserializeJsonObject("settings/colors.json");
         var iteratorData = colorData[language];
         if (iteratorData != null) {
@@ -17,6 +18,7 @@ public class ColorMapper {
 
     // Methods:
     private static ConsoleColor StringToColor(string color) {
+        // Converts a string to a ConsoleColor
         return (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color);
     }
     public Dictionary<string, ConsoleColor> GetColorData() {

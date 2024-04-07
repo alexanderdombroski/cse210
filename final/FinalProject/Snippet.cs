@@ -10,12 +10,14 @@ public class Snippet {
 
     // Constructors:
     public Snippet(string title, string keyword, string description, List<string> body) {
+        // Initialized snippet data from a manual input
         _title = title;
         _keyword = keyword;
         _description = description;
         _body = body;
     }
     public Snippet(string title, JsonObject jsonData) {
+        // Initialize snippet data from a file
         _title = title;
         _keyword = jsonData["prefix"].ToString();
         _description = jsonData["description"].ToString();
@@ -24,12 +26,11 @@ public class Snippet {
 
     // Methods:
     public void DisplaySnippet(Dictionary<string, ConsoleColor> colorKey) {
+        // Display a snippet in color
         _body.ForEach(line => ConsoleUtility.ColorPassage(line, colorKey));
     }
-    public void DisplaySnippet() {
-        _body.ForEach(Console.WriteLine);
-    }
     public KeyValuePair<string, JsonNode> ToJson() {
+        // Gets snippet data in Json format
         JsonNode returnObject = new JsonObject {
             {"prefix", _keyword},
             {"body", JsonValue.Create(_body)},
@@ -38,9 +39,11 @@ public class Snippet {
         return new KeyValuePair<string, JsonNode>(_title, returnObject);
     }
     public string ToShortString() {
+        // diplay option for a choice menu
         return $"{_keyword}: {_title}";
     }
     public string ToLongString() {
+        // display optinon for a detailed menu
         return $"{_keyword}: {_title}\n > {_description}";
     }
 }
