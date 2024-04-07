@@ -7,10 +7,11 @@ public class ColorMapper {
     public ColorMapper(string language) {
         JsonObject colorData = JsonIO.DeserializeJsonObject("settings/colors.json");
         var iteratorData = colorData[language];
-        Console.WriteLine(language);
-        foreach (var kvp in iteratorData.AsObject()) {
-            ConsoleColor color = StringToColor(kvp.Key);
-            kvp.Value.AsArray().ToList().ForEach(word => _colors.Add(word.ToString(), color));
+        if (iteratorData != null) {
+            foreach (var kvp in iteratorData.AsObject()) {
+                ConsoleColor color = StringToColor(kvp.Key);
+                kvp.Value.AsArray().ToList().ForEach(word => _colors.Add(word.ToString(), color));
+            }
         }
     }
 
