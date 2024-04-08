@@ -10,8 +10,8 @@
         "Green": ["List", "Action", "Dictionary", "Set", "Func"],
         "Blue": ["string", "int", "double", "float", "bool", "void"],
         "Cyan": ["if", "else", "try", "catch", "switch", "case", "default"],
-        "Magenta": ["for", "foreach", "while", "do"],
-        "DarkGreen": ["public", "interface", "abstract", "virtual", "class", "struct", "private", "protected", "readonly"]
+        "Magenta": ["for", "foreach", "while", "do", "break", "return", "continue"],
+        "DarkGreen": ["public", "interface", "abstract", "virtual", "class", "struct", "private", "protected", "readonly", "static"]
     },
     "JavaScript": {
         "Blue": ["function", "class", "async", "await", "yield", "constructor", "extends", "let", "const", "var"],

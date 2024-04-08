@@ -6,7 +6,7 @@ public class Snippet {
     private readonly string _title;
     private readonly string _keyword;
     private readonly string _description;
-    private readonly List<string> _body;
+    private List<string> _body;
 
     // Constructors:
     public Snippet(string title, string keyword, string description, List<string> body) {
@@ -22,6 +22,13 @@ public class Snippet {
         _keyword = jsonData["prefix"].ToString();
         _description = jsonData["description"].ToString();
         _body = jsonData["body"].AsArray().Select(line => line.ToString()).ToList();
+    }
+    public Snippet(Snippet snippet) {
+        // Duplication constructor
+        _title = snippet._title;
+        _keyword = snippet._keyword;
+        _description = snippet._description;
+        _body = snippet._body;
     }
 
     // Methods:
@@ -45,5 +52,11 @@ public class Snippet {
     public string ToLongString() {
         // display optinon for a detailed menu
         return $"{_keyword}: {_title}\n > {_description}";
+    }
+    public void UpdateBody(List<string> body) {
+        _body = body;
+    }
+    public List<string> GetBody() {
+        return _body;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text.Json.Nodes;
 using System.IO;
+using System.ComponentModel;
 
 public class SnippetManager : MenuUtility.IMenu {
     // Attributes:
@@ -64,19 +65,41 @@ public class SnippetManager : MenuUtility.IMenu {
         string description = Console.ReadLine();
 
         // Prompts the user to input snippet code in a temporary file.
-        string filePath = $"CustomCode/CustomSnippet.{_languageExtension}";
-        using (File.Create(filePath)) {};
-        Console.WriteLine($"Insert the code into the file CustomSnippet.{_languageExtension} in the\nCustomCode folder located in the same directory as this file");
-        Console.WriteLine("SAVE AND CLOSE THE FIlE, then come back here.");
-        ConsoleUtility.WaitForUser();
-        string[] body = CodeReader.ReadInCode(filePath);
-        File.Delete(filePath);
+        string[] body = ReadCodeFile();
         if (body != null) {
             Snippet snippet = new(title, keyword, description, body.ToList());
             _snippets.Add(snippet);
             Console.Write($"{title} Snippet added. ");
         } else {
             Console.Write("Snippet not created due to file reading error. ");
+        }
+        ConsoleUtility.PauseMiliseconds(1000);
+    }
+    private string[] ReadCodeFile(List<string> oldBody = null) {
+        // Writes code to a file, waits for the user to edit it, then returns it
+        string filePath = $"CustomCode/CustomSnippet.{_languageExtension}";
+        if (oldBody == null) {
+            using (File.Create(filePath)) {};  
+        } else {
+            File.WriteAllLines(filePath, oldBody);
+        }
+        Console.WriteLine($"Insert the code into the file CustomSnippet.{_languageExtension} in the\nCustomCode folder located in the same directory as this file");
+        Console.WriteLine("SAVE AND CLOSE THE FIlE, then come back here.");
+        ConsoleUtility.WaitForUser();
+        string[] body = CodeReader.ReadInCode(filePath);
+        File.Delete(filePath);
+        return body;
+    }
+    private void EditSnippet() {
+        int snippet_index = ChooseSnippet();
+        Snippet newSnippet = new(_snippets[snippet_index]);
+        string[] newBody = ReadCodeFile(newSnippet.GetBody());
+        if (newBody != null) {
+            Console.Write($"Snippet updated. ");
+            newSnippet.UpdateBody(newBody.ToList());
+            _snippets[snippet_index] = newSnippet;
+        } else {
+            Console.Write("Snippet not updated due to file reading error. ");
         }
         ConsoleUtility.PauseMiliseconds(1000);
     }
@@ -114,6 +137,7 @@ public class SnippetManager : MenuUtility.IMenu {
                 "View all Snippets",
                 "View Snippet Code",
                 "Create Snippet",
+                "Edit Snippet",
                 "Delete Snippet",
                 "Save Snippets",
                 "Return to Main Menu"
@@ -122,6 +146,7 @@ public class SnippetManager : MenuUtility.IMenu {
                 () => HandleNoSnippets(DisplaySnippetsList),
                 () => HandleNoSnippets(DisplaySnippetCode),
                 CreateSnippet,
+                () => HandleNoSnippets(EditSnippet),
                 () => HandleNoSnippets(DeleteSnippet),
                 () => HandleNoSnippets(SaveSnippets)
             }
