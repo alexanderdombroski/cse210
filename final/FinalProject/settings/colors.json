@@ -12,5 +12,13 @@
         "Cyan": ["if", "else", "try", "catch", "switch", "case", "default"],
         "Magenta": ["for", "foreach", "while", "do"],
         "DarkGreen": ["public", "interface", "abstract", "virtual", "class", "struct", "private", "protected", "readonly"]
+    },
+    "JavaScript": {
+        "Blue": ["function", "class", "async", "await", "yield", "constructor", "extends", "let", "const", "var"],
+        "Magenta": ["import", "export", "from", "require", "module", "exports"],
+        "DarkGreen": ["if", "else", "switch", "case", "default", "try", "catch", "finally", "throw", "return", "break", "continue"],
+        "Red": ["console", "log", "alert", "prompt", "confirm", "setTimeout", "clearTimeout", "setInterval", "clearInterval"],
+        "DarkYellow": ["for", "while", "do", "forEach", "map", "filter", "reduce"],
+        "Green": ["true", "false", "null", "undefined", "NaN", "Infinity"]
     }
 }
