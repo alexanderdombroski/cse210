@@ -3,13 +3,9 @@
 using System;
 
 class Program {
-    static void InitSnippets() {
-        SnippetManager snippetsManager = new();
-        snippetsManager.RunMenu();
-    }
-    static void InitSettings() {
-        SettingsManager settingsManager = new();
-        settingsManager.RunMenu();
+    static void RunClass<T>() where T : MenuUtility.IMenu {
+        T classInstance = (T)Activator.CreateInstance(typeof(T));
+        classInstance.RunMenu();
     }
     static void Main(string[] args) {    
         // Builds the main menu    
@@ -17,12 +13,14 @@ class Program {
             "Main Menu Options:",
             new List<string> {
                 "Manage Snippets",
-                "Settings",
+                "Manage Languages",
+                "Manage Snippet Storage Locations",
                 "Quit"
             },
             new List<Action> {
-                InitSnippets,
-                InitSettings
+                RunClass<SnippetManager>,
+                RunClass<Language>,
+                RunClass<DirectoryMap>
             }
         );
         Console.WriteLine("Good Luck Coding!");
