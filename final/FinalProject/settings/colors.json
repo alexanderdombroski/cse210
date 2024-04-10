@@ -1,19 +1,19 @@
 {
-    "Python": {
+    "python": {
         "Blue": ["def", "class", "lambda", "async", "await", "yield", "global", "nonlocal", "del"],
         "Cyan": ["__init__", "__call__", "__name__", "__main__", "__dict__", "__str__", "__repr__"],
         "Magenta": ["from", "import", "while", "for", "break", "pass", "with", "as", "in", "raise", "continue"],
         "Green": ["if", "elif", "else", "try", "except", "finally", "match", "case"],
         "DarkYellow": ["print", "input", "len", "range", "type", "id", "str", "int", "float", "list", "dict", "set", "tuple", "zip", "strip", "split", "enumerate"]
     },
-    "C#": {
+    "csharp": {
         "Green": ["List", "Action", "Dictionary", "Set", "Func"],
         "Blue": ["string", "int", "double", "float", "bool", "void"],
         "Cyan": ["if", "else", "try", "catch", "switch", "case", "default"],
         "Magenta": ["for", "foreach", "while", "do", "break", "return", "continue"],
         "DarkGreen": ["public", "interface", "abstract", "virtual", "class", "struct", "private", "protected", "readonly", "static"]
     },
-    "JavaScript": {
+    "javascript": {
         "Blue": ["function", "class", "async", "await", "yield", "constructor", "extends", "let", "const", "var"],
         "Magenta": ["import", "export", "from", "require", "module", "exports"],
         "DarkGreen": ["if", "else", "switch", "case", "default", "try", "catch", "finally", "throw", "return", "break", "continue"],
