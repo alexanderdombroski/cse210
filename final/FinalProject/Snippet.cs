@@ -7,14 +7,16 @@ public class Snippet {
     private readonly string _keyword;
     private readonly string _description;
     private List<string> _body;
+    private readonly string _scope;
 
     // Constructors:
-    public Snippet(string title, string keyword, string description, List<string> body) {
+    public Snippet(string title, string keyword, string description, List<string> body, string scope) {
         // Initialized snippet data from a manual input
         _title = title;
         _keyword = keyword;
         _description = description;
         _body = body;
+        _scope = scope;
     }
     public Snippet(string title, JsonObject jsonData) {
         // Initialize snippet data from a file
@@ -22,6 +24,11 @@ public class Snippet {
         _keyword = jsonData["prefix"].ToString();
         _description = jsonData["description"].ToString();
         _body = jsonData["body"].AsArray().Select(line => line.ToString()).ToList();
+        if (jsonData.ContainsKey("scope")) {
+            _scope = jsonData["scope"].ToString();
+        } else {
+            _scope = null;
+        }
     }
     public Snippet(Snippet snippet) {
         // Duplication constructor
@@ -29,6 +36,7 @@ public class Snippet {
         _keyword = snippet._keyword;
         _description = snippet._description;
         _body = snippet._body;
+        _scope = snippet._scope;
     }
 
     // Methods:
@@ -41,8 +49,11 @@ public class Snippet {
         JsonNode returnObject = new JsonObject {
             {"prefix", _keyword},
             {"body", JsonValue.Create(_body)},
-            {"description", _description}
+            {"description", _description},
         };
+        if (_scope != null) {
+            returnObject["scope"] = _scope;
+        }
         return new KeyValuePair<string, JsonNode>(_title, returnObject);
     }
     public string ToShortString() {

@@ -1,0 +1,10 @@
+{
+  "Hello World": {
+    "prefix": "hello",
+    "body": [
+      "print(\u0022Hello World\u0022)"
+    ],
+    "description": "Prints Hello World",
+    "scope": "python"
+  }
+}

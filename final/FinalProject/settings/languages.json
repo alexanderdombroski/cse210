@@ -18,5 +18,9 @@
   "JavaScript": [
     "javascript.json",
     "js"
+  ],
+  "LocalPython": [
+    "python.code-snippets",
+    "py"
   ]
 }

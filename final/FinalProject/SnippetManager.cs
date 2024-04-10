@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Text.Json.Nodes;
 using System.IO;
-using System.ComponentModel;
 
 public class SnippetManager : MenuUtility.IMenu {
     // Attributes:
@@ -11,6 +10,7 @@ public class SnippetManager : MenuUtility.IMenu {
     private string _language;
     private string _languageExtension;
     private string _snippetPath;
+    private string _scope;
 
     // Constructors:
     public SnippetManager() {
@@ -18,14 +18,25 @@ public class SnippetManager : MenuUtility.IMenu {
         JsonObject settings = JsonIO.DeserializeJsonObject("settings/settings.json");
         JsonObject languages = JsonIO.DeserializeJsonObject("settings/languages.json");
         _language = settings["selected_language"].ToString();
-        _snippetPath = settings["snippets_path"].ToString() + languages[_language][0];
+        string file = languages[_language][0].ToString();
+        _snippetPath = settings["snippets_path"].ToString() + file;
+        
+        // Color and scope
+        string scope = file[..file.IndexOf('.')];
+        ColorMapper colmap = new(scope);
+        _colorKey = colmap.GetColorData();
+        if (file.EndsWith(".code-snippets")) {
+            _scope = scope;
+        } else {
+            _scope = null;
+        }
+        
+        // Load Snippets
         if (!File.Exists(_snippetPath)) { 
             // Creates an empty snippets file if if there is none
             JsonIO.CreateEmptyJsonObject(_snippetPath);
         }
         _languageExtension = languages[_language][1].ToString();
-        ColorMapper colmap = new(_language);
-        _colorKey = colmap.GetColorData();
         LoadSnippets();
     }
 
@@ -33,8 +44,7 @@ public class SnippetManager : MenuUtility.IMenu {
     private void HandleNoSnippets(Action action) {
         // Pass in methods to make them only run if snippets exist
         if (_snippets.Count == 0) {
-            Console.Write("There are no snippets ");
-            ConsoleUtility.PauseMiliseconds(1000);
+            ConsoleUtility.PauseWrite("There are no snippets ", 1000);
         } else {
             action();
         }
@@ -57,23 +67,16 @@ public class SnippetManager : MenuUtility.IMenu {
     }
     private void CreateSnippet() {
         // Gets snippet details from the terminal
-        Console.Write("What is the title: ");
-        string title = Console.ReadLine();
-        Console.Write("What is the keyword: ");
-        string keyword = Console.ReadLine();
-        Console.Write("What is the description: ");
-        string description = Console.ReadLine();
+        string title = ConsoleUtility.WriteRead("What is the title: ");
+        string keyword = ConsoleUtility.WriteRead("What is the keyword: ");
+        string description = ConsoleUtility.WriteRead("What is the description: ");
 
         // Prompts the user to input snippet code in a temporary file.
         string[] body = ReadCodeFile();
-        if (body != null) {
-            Snippet snippet = new(title, keyword, description, body.ToList());
-            _snippets.Add(snippet);
-            Console.Write($"{title} Snippet added. ");
-        } else {
-            Console.Write("Snippet not created due to file reading error. ");
-        }
-        ConsoleUtility.PauseMiliseconds(1000);
+        Snippet snippet = new(title, keyword, description, body.ToList(), _scope);
+        _snippets.Add(snippet);
+        ConsoleUtility.PauseWrite($"{title} Snippet added. ", 1000);
+        SaveSnippets();
     }
     private string[] ReadCodeFile(List<string> oldBody = null) {
         // Writes code to a file, waits for the user to edit it, then returns it
@@ -86,27 +89,25 @@ public class SnippetManager : MenuUtility.IMenu {
         Console.WriteLine($"Insert the code into the file CustomSnippet.{_languageExtension} in the\nCustomCode folder located in the same directory as this file");
         Console.WriteLine("SAVE AND CLOSE THE FIlE, then come back here.");
         ConsoleUtility.WaitForUser();
-        string[] body = CodeReader.ReadInCode(filePath);
+        string[] body = File.ReadAllLines(filePath);
         File.Delete(filePath);
         return body;
     }
     private void EditSnippet() {
+        // Basically creates a snippet, but with preset code and snippet details.
         int snippet_index = ChooseSnippet();
         Snippet newSnippet = new(_snippets[snippet_index]);
         string[] newBody = ReadCodeFile(newSnippet.GetBody());
-        if (newBody != null) {
-            Console.Write($"Snippet updated. ");
-            newSnippet.UpdateBody(newBody.ToList());
-            _snippets[snippet_index] = newSnippet;
-        } else {
-            Console.Write("Snippet not updated due to file reading error. ");
-        }
-        ConsoleUtility.PauseMiliseconds(1000);
+        newSnippet.UpdateBody(newBody.ToList());
+        _snippets[snippet_index] = newSnippet;
+        ConsoleUtility.PauseWrite("Snippet updated. ", 1000);
+        SaveSnippets();
     }
     private void DeleteSnippet() {
         // Prompts the user to delete a snippet
         int removeOption = ChooseSnippet();
         _snippets.RemoveAt(removeOption);
+        SaveSnippets();
     }
     private void LoadSnippets() {
         // Load in snippets from a json file
@@ -139,7 +140,6 @@ public class SnippetManager : MenuUtility.IMenu {
                 "Create Snippet",
                 "Edit Snippet",
                 "Delete Snippet",
-                "Save Snippets",
                 "Return to Main Menu"
             },
             new List<Action> {
@@ -147,8 +147,7 @@ public class SnippetManager : MenuUtility.IMenu {
                 () => HandleNoSnippets(DisplaySnippetCode),
                 CreateSnippet,
                 () => HandleNoSnippets(EditSnippet),
-                () => HandleNoSnippets(DeleteSnippet),
-                () => HandleNoSnippets(SaveSnippets)
+                () => HandleNoSnippets(DeleteSnippet)
             }
         );
     }
