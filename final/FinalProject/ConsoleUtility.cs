@@ -42,16 +42,22 @@ public static class ConsoleUtility {
     }
     public static void WaitForUser() {
         // Prompts the user to press ENTER
-        Console.Write("\nPress ENTER to Continue");
-        Console.ReadLine();
+        WriteRead("\nPress ENTER to Continue");
+    }
+    public static void PauseWrite(string prompt, int waitTime) {
+        Console.Write(prompt);
+        PauseMiliseconds(waitTime);
+    }
+    public static string WriteRead(string prompt) {
+        Console.Write(prompt);
+        return Console.ReadLine();
     }
     public static string GetAbsolutePath(string prompt = "Type the file path: ") {
         // Gets a filepath, checks validity, and returns it
         bool InvalidResponse = true;
         string response = "";
         while (InvalidResponse) {
-            Console.Write(prompt);
-            response = Console.ReadLine();
+            response = WriteRead(prompt);
             if (!Path.IsPathRooted(response)) {
                 response = Path.GetFullPath(response);
             }
