@@ -8,6 +8,9 @@
 * Expandable to new languages
 * Use the default storage location, or change it to vscode's default snippet storage location.
 
+#### Ready to test!
+* There are already a few snippets loaded into the default folder for your testing desires
+
 #### To create a snippet:
 1. Select a language in settings > language settings
 2. Navigate back to snippet manager
